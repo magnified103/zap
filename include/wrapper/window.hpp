@@ -59,6 +59,6 @@ private:
     SDL_Window *window;
 };
 
-}
+} // namespace sdl
 
 #endif // WRAPPER_WINDOW_HPP

@@ -27,6 +27,6 @@ private:
     SDL_Color internal_color;
 };
 
-}
+} // namespace sdl
 
 #endif // WRAPPER_COLOR_HPP

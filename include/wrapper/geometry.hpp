@@ -36,6 +36,6 @@ private:
     rect_type rect;
 };
 
-}
+} // namespace sdl
 
 #endif // WRAPPER_GEOMETRY_HPP

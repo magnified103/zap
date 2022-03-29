@@ -17,7 +17,7 @@ using uint16 = Uint16;
 using uint32 = Uint32;
 using uint64 = Uint64;
 
-}
+} // namespace sdl
 
 namespace sdl::detail {
 
@@ -36,6 +36,6 @@ using enable_for_owner = std::enable_if_t<is_owner<T>, int>;
 template <typename T>
 using enable_for_handle = std::enable_if_t<is_handle<T>, int>;
 
-}
+} // namespace sdl::detail
 
 #endif // WRAPPER_COMMON_HPP

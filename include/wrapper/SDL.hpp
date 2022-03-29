@@ -3,8 +3,11 @@
 
 #include <SDL2/SDL.h>
 
+#include "common.hpp"
+#include "event.hpp"
 #include "exception.hpp"
 #include "geometry.hpp"
+#include "logging.hpp"
 #include "renderer.hpp"
 #include "texture.hpp"
 #include "window.hpp"
@@ -13,22 +16,19 @@ namespace sdl {
 
 class sdl {
 public:
-    sdl() {
-        if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            throw sdl_exception();
-        }
-    }
-
-    sdl(Uint32 flags) {
+    sdl(uint32 flags) {
         if (SDL_Init(flags) < 0) {
             throw sdl_exception();
         }
     }
+
+    sdl() : sdl(SDL_INIT_EVERYTHING) {}
+
     ~sdl() noexcept { SDL_Quit(); }
 };
 
-void delay(Uint32 ms) { SDL_Delay(ms); }
+void delay(uint32 ms) { SDL_Delay(ms); }
 
-}
+} // namespace sdl
 
 #endif // WRAPPER_SDL_HPP

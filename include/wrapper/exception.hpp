@@ -28,6 +28,6 @@ public:
     explicit sdl_exception(std::string what) noexcept : exception(what) {}
 };
 
-}
+} // namespace sdl
 
 #endif // WRAPPER_EXCEPTION_HPP

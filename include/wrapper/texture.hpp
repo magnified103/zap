@@ -42,6 +42,6 @@ private:
     SDL_Texture *texture;
 };
 
-}
+} // namespace sdl
 
 #endif // WRAPPER_TEXTURE_HPP

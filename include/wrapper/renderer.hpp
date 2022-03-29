@@ -68,6 +68,6 @@ private:
     SDL_Renderer *renderer;
 };
 
-}
+} // namespace sdl
 
 #endif // WRAPPER_RENDERER_HPP
