@@ -9,22 +9,22 @@ namespace sdl {
 
 class color {
 public:
-    color() : internal_color{} {};
+    color() : sdl_color{} {};
 
-    color(uint8 r, uint8 g, uint8 b, uint8 a) : internal_color{r, g, b, a} {}
+    color(Uint8 r, Uint8 g, Uint8 b, Uint8 a) : sdl_color{r, g, b, a} {}
 
-    color(uint8 r, uint8 g, uint8 b) : internal_color{r, g, b, 0xff} {}
+    color(Uint8 r, Uint8 g, Uint8 b) : sdl_color{r, g, b, 0xff} {}
 
-    uint8 red() { return internal_color.r; }
+    Uint8 red() { return sdl_color.r; }
 
-    uint8 green() { return internal_color.g; }
+    Uint8 green() { return sdl_color.g; }
 
-    uint8 blue() { return internal_color.b; }
+    Uint8 blue() { return sdl_color.b; }
 
-    uint8 alpha() { return internal_color.a; }
+    Uint8 alpha() { return sdl_color.a; }
 
 private:
-    SDL_Color internal_color;
+    SDL_Color sdl_color;
 };
 
 } // namespace sdl

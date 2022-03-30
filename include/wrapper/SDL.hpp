@@ -9,6 +9,7 @@
 #include "geometry.hpp"
 #include "logging.hpp"
 #include "renderer.hpp"
+#include "surface.hpp"
 #include "texture.hpp"
 #include "window.hpp"
 
@@ -16,7 +17,7 @@ namespace sdl {
 
 class sdl {
 public:
-    sdl(uint32 flags) {
+    sdl(Uint32 flags) {
         if (SDL_Init(flags) < 0) {
             throw sdl_exception();
         }
@@ -27,7 +28,7 @@ public:
     ~sdl() noexcept { SDL_Quit(); }
 };
 
-void delay(uint32 ms) { SDL_Delay(ms); }
+inline void delay(Uint32 ms) { SDL_Delay(ms); }
 
 } // namespace sdl
 

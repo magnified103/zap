@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "common.hpp"
+#include "exception.hpp"
 #include "renderer.hpp"
 
 namespace sdl {

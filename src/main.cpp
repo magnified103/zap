@@ -26,9 +26,9 @@ void draw(sdl::renderer &renderer, int x, int y, int len) {
     static std::mt19937 rng(std::random_device{}());
     static std::uniform_int_distribution<> dist(0, 255);
     sdl::rect rect(x, y, len, len);
-    sdl::uint8 r = dist(rng);
-    sdl::uint8 g = dist(rng);
-    sdl::uint8 b = dist(rng);
+    Uint8 r = dist(rng);
+    Uint8 g = dist(rng);
+    Uint8 b = dist(rng);
     if (renderer.set_draw_color({r, g, b}) < 0 ||
         renderer.fill_rect(rect) < 0) {
         log(true);

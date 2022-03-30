@@ -5,6 +5,7 @@
 #include <string>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 namespace sdl {
 
@@ -26,6 +27,13 @@ public:
     sdl_exception() noexcept : exception(SDL_GetError()) {}
 
     explicit sdl_exception(std::string what) noexcept : exception(what) {}
+};
+
+class img_exception final : public exception {
+public:
+    img_exception() noexcept : exception(IMG_GetError()) {}
+
+    explicit img_exception(std::string what) noexcept : exception(what) {}
 };
 
 } // namespace sdl

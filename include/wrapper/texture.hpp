@@ -16,30 +16,32 @@ using texture_handle = basic_texture<detail::handle_tag>;
 template <class traits>
 class basic_texture {
 public:
-    basic_texture() : texture(){};
+    basic_texture() : sdl_texture(){};
 
     template <class T = traits, detail::enable_for_owner<T>>
     basic_texture(renderer_handle renderer, Uint32 format, int access, int w,
                   int h) {
-        texture = SDL_CreateTexture(renderer.get(), format, access, w, h);
+        sdl_texture = SDL_CreateTexture(renderer.get(), format, access, w, h);
     }
 
     template <class T = traits, detail::enable_for_owner<T>>
     basic_texture(renderer_handle renderer, SDL_Surface *surface) {
-        texture = SDL_CreateTextureFromSurface(renderer.get(), surface);
+        sdl_texture = SDL_CreateTextureFromSurface(renderer.get(), surface);
     }
 
     template <class T = traits, detail::enable_for_handle<T>>
-    basic_texture(const texture &other) : texture(other.texture) {}
+    basic_texture(const texture &other) : sdl_texture(other.get()) {}
 
     ~basic_texture() {
         if constexpr (detail::is_owner<traits>) {
-            SDL_DestroyTexture(texture);
+            SDL_DestroyTexture(sdl_texture);
         }
     }
 
+    SDL_Texture *get() const noexcept { return sdl_texture; }
+
 private:
-    SDL_Texture *texture;
+    SDL_Texture *sdl_texture;
 };
 
 } // namespace sdl
