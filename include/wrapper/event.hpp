@@ -10,9 +10,9 @@
 
 namespace sdl {
 
-class event_handle {
+class event_handler {
 public:
-    event_handle() : type{SDL_LASTEVENT}, data{} {}
+    event_handler() : type{SDL_LASTEVENT}, data{} {}
 
     int poll() {
         SDL_Event event;
@@ -27,6 +27,11 @@ public:
     template <class T>
     T *get_if() {
         return std::get_if<T>(&data);
+    }
+
+    template <class T>
+    bool is() const noexcept {
+        return std::holds_alternative<T>(data);
     }
 
 private:
@@ -145,7 +150,7 @@ public:
 private:
     using callback_tuple = std::tuple<event_callback_handle<event_types>...>;
 
-    event_handle handle;
+    event_handler handle;
     callback_tuple callbacks;
 };
 

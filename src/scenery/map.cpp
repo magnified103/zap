@@ -23,7 +23,7 @@ map_grid::map_grid(std::istream &&in) : map_grid(in) {}
 
 bool map_grid::collide(int x, int y) {
     if (x < 0 || x >= width * grid_size || y < 0 || y >= height * grid_size) {
-        return false;
+        return true;
     }
     return grid[y / grid_size][x / grid_size] == 1;
 }
@@ -41,4 +41,32 @@ sdl::surface map_grid::get_surface() const {
         }
     }
     return surface;
+}
+
+int map_grid::get_value(int x, int y) const {
+    if (y < 0 || y >= height || x < 0 || x >= width) {
+        throw sdl::exception("Out of bound");
+    }
+    return grid[y][x];
+}
+
+int map_grid::get_width() const { return width; }
+
+int map_grid::get_height() const { return height; }
+
+int map_grid::get_grid_size() const { return grid_size; }
+
+std::pair<int, int> map_grid::get_starting_position() const {
+    std::vector<std::pair<int, int>> candidates;
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            if (grid[i][j] == -1) {
+                candidates.emplace_back(j, i);
+            }
+        }
+    }
+    if (candidates.size() != 1) {
+        throw sdl::exception("Wrong number of starting potisions");
+    }
+    return candidates[0];
 }

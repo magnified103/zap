@@ -33,6 +33,13 @@ public:
         window = SDL_CreateWindow(title.c_str(), x, y, w, h, flags);
     }
 
+    template <class T = traits, detail::enable_for_owner<T> = 0>
+    basic_window(std::string title, int w, int h) {
+        window =
+            SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
+                             SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_SHOWN);
+    }
+
     template <class T = traits, detail::enable_for_handle<T> = 0>
     basic_window(const window &other) : window{other.get()} {}
 

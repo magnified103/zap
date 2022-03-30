@@ -38,9 +38,7 @@ public:
         }
     }
 
-    SDL_Renderer *get() noexcept { return sdl_renderer; }
-
-    const SDL_Renderer *get() const noexcept { return sdl_renderer; }
+    SDL_Renderer *get() const noexcept { return sdl_renderer; }
 
     template <class T>
     texture create_texture(const basic_surface<T> &surface) const {
