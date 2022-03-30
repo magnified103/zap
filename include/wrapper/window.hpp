@@ -52,6 +52,10 @@ public:
         throw sdl_exception();
     }
 
+    renderer create_renderer(Uint32 flags) {
+        return create_renderer(-1, flags);
+    }
+
     renderer_handle get_renderer() {
         return renderer_handle(SDL_GetRenderer(window));
     }
