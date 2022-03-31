@@ -52,6 +52,15 @@ public:
         }
     }
 
+    template <class T = traits, detail::enable_for_handle<T> = 0>
+    basic_surface(const surface &other) : sdl_surface(other.get()) {}
+
+    ~basic_surface() {
+        if constexpr (detail::is_owner<traits>) {
+            SDL_FreeSurface(sdl_surface);
+        }
+    }
+
     SDL_Surface *get() const noexcept { return sdl_surface; }
 
     int fill_rect(const rect &rect, color color) {

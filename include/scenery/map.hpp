@@ -5,7 +5,11 @@
 #include <utility>
 #include <vector>
 
+#include "../geometry/point.hpp"
+#include "../geometry/segment.hpp"
 #include "../wrapper/SDL.hpp"
+
+inline constexpr float infinity_distance = 5000;
 
 class map_grid {
 public:
@@ -25,6 +29,10 @@ public:
     int get_grid_size() const;
 
     std::pair<int, int> get_starting_position() const;
+
+    std::optional<point2d<float>> ray_cast(ray<float> ray) const;
+
+    float hit_distance(point2d<float> source, ray<float> ray) const;
 
 private:
     int width;

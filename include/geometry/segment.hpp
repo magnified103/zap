@@ -65,7 +65,7 @@ get_intersection(const ray<value_type> &ray,
     }
 
     // Return the POINT OF INTERSECTION
-    return point2d{x : r_px + r_dx * T1, y : r_py + r_dy * T1};
+    return point2d<value_type>{r_px + r_dx * T1, r_py + r_dy * T1};
 }
 
 #endif // GEOMETRY_SEGMENT_HPP

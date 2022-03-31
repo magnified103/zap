@@ -88,6 +88,11 @@ public:
         }
     }
 
+    template <class T>
+    int render(const basic_texture<T> &texture) {
+        return SDL_RenderCopy(sdl_renderer, texture.get(), nullptr, nullptr);
+    }
+
 private:
     SDL_Renderer *sdl_renderer;
 };

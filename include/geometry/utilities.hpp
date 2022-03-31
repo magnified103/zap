@@ -3,23 +3,18 @@
 
 #include <cmath>
 
-template <class value_type>
-struct epsilon {
-    inline constexpr static value_type value;
-};
-
-inline constexpr float epsilon<float>::value = 1e-9;
+inline constexpr float epsilon = 1e-8;
 
 template <class value_type>
 inline constexpr bool approximately_equal(const value_type &a,
                                           const value_type &b) {
-    return abs(a - b) <= std::max(abs(a), abs(b)) * epsilon<value_type>::value;
+    return abs(a - b) <= std::max(abs(a), abs(b)) * epsilon;
 }
 
 template <class value_type>
 inline constexpr bool essentially_equal(const value_type &a,
                                         const value_type &b) {
-    return abs(a - b) <= std::min(abs(a), abs(b)) * epsilon<value_type>::value;
+    return abs(a - b) <= std::min(abs(a), abs(b)) * epsilon;
 }
 
 #endif // GEOMETRY_UTILITIES_HPP
