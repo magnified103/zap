@@ -92,9 +92,9 @@ int main(int argc, char *argv[]) {
             move_type = movement_type::down;
         }
         float c = 0;
-        if (keyboard_state[SDL_SCANCODE_LEFT]) {
+        if (keyboard_state[SDL_SCANCODE_A]) {
             c = -1;
-        } else if (keyboard_state[SDL_SCANCODE_RIGHT]) {
+        } else if (keyboard_state[SDL_SCANCODE_D]) {
             c = 1;
         }
         player_position = player.try_move(move_type, diff_time);

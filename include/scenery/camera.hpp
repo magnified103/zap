@@ -15,8 +15,9 @@ public:
     camera(float fov) : fov(fov) {}
     void render(sdl::surface_handle surface, dot &player, map_grid &grid,
                 float width, float height) {
-        int ray_count = 200;
-        float base_angle = player.get_angle() - fov / 2;
+        int ray_count = 500;
+        float angle = player.get_angle();
+        float base_angle = angle - fov / 2;
         float base_w = fov / ray_count;
         std::vector<float> hits;
         point2d<float> player_position = player.get_position();
@@ -24,14 +25,10 @@ public:
         for (int i = 0; i < ray_count; i++) {
             point2d<float> delta{std::cos(base_angle), std::sin(base_angle)};
             hits.push_back(grid.hit_distance(
-                player_position, {player_position, player_position + delta}));
+                player_position, {player_position, player_position + delta}) * std::cos(base_angle - angle));
             // sdl::log_info("%.2f %.2f %.2f", base_w, delta.x, delta.y);
             base_angle += base_w;
         }
-        // for (auto hit : hits) {
-        //     std::cerr << hit << " ";
-        // }
-        // std::cerr << "\n";
         render(surface, hits, width / ray_count, height / 2, 15000, 50);
     }
     void render(sdl::surface_handle surface, std::vector<float> hits,
@@ -41,7 +38,7 @@ public:
             float wall_height = base / hit;
             int brightness = std::min(255.0f, 0xff / ((hit + 1) / base_color));
             surface.fill_rect(
-                sdl::rect{x, horizon - wall_height / 2, delta, wall_height},
+                sdl::rect{x, horizon - wall_height / 2, delta + 1, wall_height},
                 sdl::color{brightness, brightness, brightness});
             x += delta;
         }
