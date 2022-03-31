@@ -9,11 +9,11 @@
 #include "../geometry/segment.hpp"
 #include "../wrapper/SDL.hpp"
 
-inline constexpr float infinity_distance = 5000;
+inline constexpr float infinity_distance = 100000;
+inline constexpr float render_distance = 100000;
 
 class map_grid {
 public:
-    map_grid() = delete;
     map_grid(std::istream &in);
     map_grid(std::istream &&in);
     bool collide(int x, int y);

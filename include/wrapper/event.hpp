@@ -70,6 +70,9 @@ private:
         case SDL_KEYDOWN:
             data.emplace<SDL_KeyboardEvent>(event.key);
             break;
+        case SDL_MOUSEMOTION:
+            data.emplace<SDL_MouseMotionEvent>(event.motion);
+            break;
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP:
             data.emplace<SDL_MouseButtonEvent>(event.button);

@@ -1,9 +1,9 @@
 #include <cmath>
 
 #include "../../include/geometry/point.hpp"
-#include "../../include/scenery/dot.hpp"
+#include "../../include/scenery/player.hpp"
 
-point2d<float> dot::try_move(int move_type, float t) const {
+point2d<float> player::try_move(int move_type, float t) const {
     if (!movement_scalar[move_type]) {
         return p;
     }
@@ -11,19 +11,19 @@ point2d<float> dot::try_move(int move_type, float t) const {
                    movement_scalar[move_type] * (t * s);
 }
 
-void dot::rotate_camera(float c, float t) {
+void player::rotate_camera(float c, float t) {
     angle += c * t * w;
 }
 
-void dot::set_position(const point2d<float> &pt) { p = pt; }
+void player::set_position(const point2d<float> &pt) { p = pt; }
 
-float dot::get_angle() const {
+float player::get_angle() const {
     return angle;
 }
 
-point2d<float> dot::get_position() const { return p; }
+point2d<float> player::get_position() const { return p; }
 
-void dot::render(sdl::renderer_handle renderer,
+void player::render(sdl::renderer_handle renderer,
                  sdl::texture_handle dot_texture) const {
     renderer.render(dot_texture, sdl::frect{p.x - 5, p.y - 5, 10, 10});
 }

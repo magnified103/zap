@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 
-#include "../../include/various/timer.hpp"
+#include "../../include/timer/timer.hpp"
 
 timer::timer()
     : start_ticks(0), paused_ticks(0), paused(false), started(false) {}

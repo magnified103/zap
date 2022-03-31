@@ -14,9 +14,9 @@ struct movement_type {
 
 inline constexpr float movement_scalar[3] = {0,  1, -1};
 
-class dot {
+class player {
 public:
-    dot(point2d<float> p, float angle, float s, float w) : p(p), angle(angle), s(s), w(w) {}
+    player(point2d<float> p, float angle, float s, float w) : p(p), angle(angle), s(s), w(w) {}
     point2d<float> try_move(int move_type, float t) const;
 
     void rotate_camera(float c, float t);

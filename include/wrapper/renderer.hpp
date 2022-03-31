@@ -49,8 +49,6 @@ public:
         throw sdl_exception();
     }
 
-    int clear() { return SDL_RenderClear(sdl_renderer); }
-
     void present() { SDL_RenderPresent(sdl_renderer); }
 
     template <class value_type>
@@ -76,21 +74,49 @@ public:
                                       color.blue(), color.alpha());
     }
 
+    color get_draw_color() {
+        color draw_color;
+        if (SDL_GetRenderDrawColor(sdl_renderer, &draw_color.red(),
+                                   &draw_color.green(), &draw_color.blue(),
+                                   &draw_color.alpha()) < 0) {
+            throw sdl_exception();
+        }
+        return draw_color;
+    }
+
     template <class T, class value_type>
     int render(const basic_texture<T> &texture,
                const basic_rect<value_type> &dest) {
         if constexpr (dest.is_integral) {
             return SDL_RenderCopy(sdl_renderer, texture.get(), nullptr,
-                                  dest.get_ptr()) == 0;
+                                  dest.get_ptr());
         } else {
             return SDL_RenderCopyF(sdl_renderer, texture.get(), nullptr,
-                                   dest.get_ptr()) == 0;
+                                   dest.get_ptr());
         }
     }
 
     template <class T>
     int render(const basic_texture<T> &texture) {
         return SDL_RenderCopy(sdl_renderer, texture.get(), nullptr, nullptr);
+    }
+
+    int fill() { return SDL_RenderFillRect(sdl_renderer, nullptr); }
+
+    void fill_with(const color &color) {
+        const auto previous = get_draw_color();
+        set_draw_color(color);
+        fill();
+        set_draw_color(previous);
+    }
+
+    int clear() { return SDL_RenderClear(sdl_renderer); }
+
+    void clear_with(const color &color) {
+        const auto previous = get_draw_color();
+        set_draw_color(color);
+        clear();
+        set_draw_color(previous);
     }
 
 private:

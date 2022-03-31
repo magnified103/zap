@@ -51,15 +51,15 @@ public:
 
     SDL_Window *get() const noexcept { return window; }
 
-    renderer create_renderer(int index, Uint32 flags) {
+    renderer_handle create_renderer(int index, Uint32 flags) {
         auto *ptr = SDL_CreateRenderer(window, index, flags);
         if (ptr) {
-            return renderer(ptr);
+            return renderer_handle(ptr);
         }
         throw sdl_exception();
     }
 
-    renderer create_renderer(Uint32 flags) {
+    renderer_handle create_renderer(Uint32 flags) {
         return create_renderer(-1, flags);
     }
 

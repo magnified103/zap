@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <istream>
 #include <optional>
 #include <vector>
@@ -79,10 +80,14 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             if (grid[y][x] == 1) {
-                point2d<float> a{x * grid_size, y * grid_size};
-                point2d<float> b{(x + 1) * grid_size, y * grid_size};
-                point2d<float> c{x * grid_size, (y + 1) * grid_size};
-                point2d<float> d{(x + 1) * grid_size, (y + 1) * grid_size};
+                point2d<float> a{static_cast<float>(x * grid_size),
+                                 static_cast<float>(y * grid_size)};
+                point2d<float> b{static_cast<float>((x + 1) * grid_size),
+                                 static_cast<float>(y * grid_size)};
+                point2d<float> c{static_cast<float>(x * grid_size),
+                                 static_cast<float>((y + 1) * grid_size)};
+                point2d<float> d{static_cast<float>((x + 1) * grid_size),
+                                 static_cast<float>((y + 1) * grid_size)};
                 auto intersection = get_intersection(ray, {a, b});
                 if (intersection) {
                     float distance = (*intersection - ray.a).abs();
@@ -119,9 +124,10 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
         }
     }
     point2d<float> a{0, 0};
-    point2d<float> b{width * grid_size, 0};
-    point2d<float> c{0, height * grid_size};
-    point2d<float> d{width * grid_size, height * grid_size};
+    point2d<float> b{static_cast<float>(width * grid_size), 0};
+    point2d<float> c{0, static_cast<float>(height * grid_size)};
+    point2d<float> d{static_cast<float>(width * grid_size),
+                     static_cast<float>(height * grid_size)};
     auto intersection = get_intersection(ray, {a, b});
     if (intersection) {
         float distance = (*intersection - ray.a).abs();
@@ -160,7 +166,10 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
 float map_grid::hit_distance(point2d<float> source, ray<float> ray) const {
     auto intersection = ray_cast(ray);
     if (intersection) {
-        return (*intersection - source).abs();
+        float distance = (*intersection - source).abs();
+        if (distance <= render_distance) {
+            return distance;
+        }
     }
     return infinity_distance;
 }
