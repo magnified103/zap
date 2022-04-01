@@ -1,3 +1,4 @@
+#include <fstream>
 #include <memory>
 
 #include "../include/core/game.hpp"
@@ -27,12 +28,13 @@ int main(int argc, char *argv[]) {
     // sdl::window minimap_window("minimap", minimap_width, minimap_height);
 
     // // create renderer
-    // sdl::renderer renderer = window.create_renderer(SDL_RENDERER_ACCELERATED |
-    //                                                 SDL_RENDERER_PRESENTVSYNC);
+    // sdl::renderer renderer = window.create_renderer(SDL_RENDERER_ACCELERATED
+    // |
+    //                                                 SDL_RENDERER_PRESENTVSYNC).get();
 
     // // renderer for minimap
     // sdl::renderer minimap_renderer = minimap_window.create_renderer(
-    //     SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    //     SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC).get();
 
     // // minimap texture
     // sdl::texture background_texture =
@@ -113,8 +115,7 @@ int main(int argc, char *argv[]) {
     //     player.rotate_camera(c, diff_time);
     //     player.render(minimap_renderer, dot_texture);
     //     renderer.clear_with(sdl::color{0x00, 0x00, 0x00});
-    //     game_camera.render(renderer, player, grid, window_width, window_height);
-    //     renderer.present();
-    //     minimap_renderer.present();
+    //     game_camera.render(renderer, player, grid, window_width,
+    //     window_height); renderer.present(); minimap_renderer.present();
     // }
 }

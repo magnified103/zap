@@ -30,9 +30,11 @@ public:
 
     std::pair<int, int> get_starting_position() const;
 
-    std::optional<point2d<float>> ray_cast(ray<float> ray) const;
+    std::optional<std::pair<point2d<float>, sdl::color>>
+    ray_cast(ray<float> ray) const;
 
-    float hit_distance(point2d<float> source, ray<float> ray) const;
+    std::pair<float, sdl::color> hit_distance(point2d<float> source,
+                                              ray<float> ray) const;
 
 private:
     int width;

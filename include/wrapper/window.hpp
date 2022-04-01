@@ -20,9 +20,9 @@ using window_handle = basic_window<detail::handle_tag>;
 template <class traits>
 class basic_window {
 public:
-    basic_window(SDL_Window *window) : window{window} {
+    basic_window(SDL_Window *window) : sdl_window{window} {
         if constexpr (detail::is_owner<traits>) {
-            if (!window) {
+            if (!sdl_window) {
                 throw exception("Cannot create window from nullptr");
             }
         }
@@ -30,29 +30,29 @@ public:
 
     template <class T = traits, detail::enable_for_owner<T> = 0>
     basic_window(std::string title, int x, int y, int w, int h, Uint32 flags) {
-        window = SDL_CreateWindow(title.c_str(), x, y, w, h, flags);
+        sdl_window = SDL_CreateWindow(title.c_str(), x, y, w, h, flags);
     }
 
     template <class T = traits, detail::enable_for_owner<T> = 0>
     basic_window(std::string title, int w, int h) {
-        window =
+        sdl_window =
             SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
                              SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_SHOWN);
     }
 
     template <class T = traits, detail::enable_for_handle<T> = 0>
-    basic_window(const window &other) : window{other.get()} {}
+    basic_window(const window &other) : sdl_window{other.get()} {}
 
     ~basic_window() {
         if constexpr (detail::is_owner<traits>) {
-            SDL_DestroyWindow(window);
+            SDL_DestroyWindow(sdl_window);
         }
     }
 
-    SDL_Window *get() const noexcept { return window; }
+    SDL_Window *get() const noexcept { return sdl_window; }
 
     renderer_handle create_renderer(int index, Uint32 flags) {
-        auto *ptr = SDL_CreateRenderer(window, index, flags);
+        auto *ptr = SDL_CreateRenderer(sdl_window, index, flags);
         if (ptr) {
             return renderer_handle(ptr);
         }
@@ -64,11 +64,17 @@ public:
     }
 
     renderer_handle get_renderer() {
-        return renderer_handle(SDL_GetRenderer(window));
+        return renderer_handle(SDL_GetRenderer(sdl_window));
+    }
+
+    std::string get_title() { return SDL_GetWindowTitle(sdl_window); }
+
+    void set_title(std::string title) {
+        SDL_SetWindowTitle(sdl_window, title.c_str());
     }
 
 private:
-    SDL_Window *window;
+    SDL_Window *sdl_window;
 };
 
 } // namespace sdl

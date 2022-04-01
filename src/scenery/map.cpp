@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <istream>
 #include <optional>
+#include <utility>
 #include <vector>
 
 #include "../../include/geometry/segment.hpp"
@@ -74,9 +75,12 @@ std::pair<int, int> map_grid::get_starting_position() const {
     return candidates[0];
 }
 
-std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
-    std::optional<point2d<float>> best_intersection;
+std::optional<std::pair<point2d<float>, sdl::color>>
+map_grid::ray_cast(ray<float> ray) const {
+    std::optional<std::pair<point2d<float>, sdl::color>> best_intersection;
     float minimum_distance = 0;
+    sdl::color color_parallel_x = sdl::colors::aqua;
+    sdl::color color_parallel_y = sdl::colors::aquamarine;
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             if (grid[y][x] == 1) {
@@ -92,7 +96,7 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
                 if (intersection) {
                     float distance = (*intersection - ray.a).abs();
                     if (!best_intersection || minimum_distance > distance) {
-                        best_intersection = intersection;
+                        best_intersection = {*intersection, color_parallel_x};
                         minimum_distance = distance;
                     }
                 }
@@ -100,7 +104,7 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
                 if (intersection) {
                     float distance = (*intersection - ray.a).abs();
                     if (!best_intersection || minimum_distance > distance) {
-                        best_intersection = intersection;
+                        best_intersection = {*intersection, color_parallel_y};
                         minimum_distance = distance;
                     }
                 }
@@ -108,7 +112,7 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
                 if (intersection) {
                     float distance = (*intersection - ray.a).abs();
                     if (!best_intersection || minimum_distance > distance) {
-                        best_intersection = intersection;
+                        best_intersection = {*intersection, color_parallel_y};
                         minimum_distance = distance;
                     }
                 }
@@ -116,7 +120,7 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
                 if (intersection) {
                     float distance = (*intersection - ray.a).abs();
                     if (!best_intersection || minimum_distance > distance) {
-                        best_intersection = intersection;
+                        best_intersection = {*intersection, color_parallel_x};
                         minimum_distance = distance;
                     }
                 }
@@ -132,7 +136,7 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
     if (intersection) {
         float distance = (*intersection - ray.a).abs();
         if (!best_intersection || minimum_distance > distance) {
-            best_intersection = intersection;
+            best_intersection = {*intersection, color_parallel_x};
             minimum_distance = distance;
         }
     }
@@ -140,7 +144,7 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
     if (intersection) {
         float distance = (*intersection - ray.a).abs();
         if (!best_intersection || minimum_distance > distance) {
-            best_intersection = intersection;
+            best_intersection = {*intersection, color_parallel_y};
             minimum_distance = distance;
         }
     }
@@ -148,7 +152,7 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
     if (intersection) {
         float distance = (*intersection - ray.a).abs();
         if (!best_intersection || minimum_distance > distance) {
-            best_intersection = intersection;
+            best_intersection = {*intersection, color_parallel_y};
             minimum_distance = distance;
         }
     }
@@ -156,20 +160,21 @@ std::optional<point2d<float>> map_grid::ray_cast(ray<float> ray) const {
     if (intersection) {
         float distance = (*intersection - ray.a).abs();
         if (!best_intersection || minimum_distance > distance) {
-            best_intersection = intersection;
+            best_intersection = {*intersection, color_parallel_x};
             minimum_distance = distance;
         }
     }
     return best_intersection;
 }
 
-float map_grid::hit_distance(point2d<float> source, ray<float> ray) const {
+std::pair<float, sdl::color> map_grid::hit_distance(point2d<float> source,
+                                                    ray<float> ray) const {
     auto intersection = ray_cast(ray);
     if (intersection) {
-        float distance = (*intersection - source).abs();
+        float distance = (intersection->first - source).abs();
         if (distance <= render_distance) {
-            return distance;
+            return {distance, intersection->second};
         }
     }
-    return infinity_distance;
+    return {infinity_distance, sdl::colors::black};
 }

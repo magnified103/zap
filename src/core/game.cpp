@@ -1,5 +1,6 @@
 #include <fstream>
 #include <memory>
+#include <string>
 
 #include "../../include/core/game.hpp"
 #include "../../include/geometry/point.hpp"
@@ -56,6 +57,7 @@ void game::initialize() {
 void game::game_logic() {
     Uint32 diff_time = game_timer.get_ticks();
     game_timer.start();
+    main_window->set_title("zap - fps=" + std::to_string(1000.0f / diff_time));
     int move_type = movement_type::none;
     if (keyboard_state[SDL_SCANCODE_W]) {
         move_type = movement_type::up;
