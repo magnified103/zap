@@ -30,6 +30,10 @@ public:
 
 inline void delay(Uint32 ms) { SDL_Delay(ms); }
 
+inline int set_relative_mouse_mode(bool enabled) {
+    return SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
+}
+
 } // namespace sdl
 
 #endif // WRAPPER_SDL_HPP

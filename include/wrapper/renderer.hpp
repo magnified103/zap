@@ -96,6 +96,11 @@ public:
         }
     }
 
+    int render_triangles(const std::vector<SDL_Vertex> &vertices) {
+        return SDL_RenderGeometry(sdl_renderer, nullptr, vertices.data(),
+                                  vertices.size(), nullptr, 0);
+    }
+
     template <class T>
     int render(const basic_texture<T> &texture) {
         return SDL_RenderCopy(sdl_renderer, texture.get(), nullptr, nullptr);

@@ -7,6 +7,7 @@
 
 #include "../geometry/point.hpp"
 #include "../geometry/segment.hpp"
+#include "../scenery/wall.hpp"
 #include "../wrapper/SDL.hpp"
 
 inline constexpr float infinity_distance = 100000;
@@ -35,6 +36,8 @@ public:
 
     std::pair<float, sdl::color> hit_distance(point2d<float> source,
                                               ray<float> ray) const;
+
+    std::vector<wall> get_walls() const;
 
 private:
     int width;

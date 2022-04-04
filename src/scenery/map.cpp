@@ -5,7 +5,9 @@
 #include <vector>
 
 #include "../../include/geometry/segment.hpp"
+#include "../../include/geometry/vector.hpp"
 #include "../../include/scenery/map.hpp"
+#include "../../include/scenery/wall.hpp"
 #include "../../include/wrapper/SDL.hpp"
 
 map_grid::map_grid(std::istream &in) {
@@ -177,4 +179,30 @@ std::pair<float, sdl::color> map_grid::hit_distance(point2d<float> source,
         }
     }
     return {infinity_distance, sdl::colors::black};
+}
+
+std::vector<wall> map_grid::get_walls() const {
+    std::vector<wall> walls;
+    sdl::color color_parallel_x = sdl::colors::aqua;
+    sdl::color color_parallel_z = sdl::colors::aquamarine;
+    float cell_size = grid_size;
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            if (grid[i][j] == 1) {
+                walls.push_back({{{j * cell_size, i * cell_size},
+                                  {(j + 1) * cell_size, i * cell_size}},
+                                 color_parallel_x});
+                walls.push_back({{{j * cell_size, i * cell_size},
+                                  {j * cell_size, (i + 1) * cell_size}},
+                                 color_parallel_z});
+                walls.push_back({{{(j + 1) * cell_size, i * cell_size},
+                                  {(j + 1) * cell_size, (i + 1) * cell_size}},
+                                 color_parallel_z});
+                walls.push_back({{{j * cell_size, (i + 1) * cell_size},
+                                  {(j + 1) * cell_size, (i + 1) * cell_size}},
+                                 color_parallel_x});
+            }
+        }
+    }
+    return walls;
 }

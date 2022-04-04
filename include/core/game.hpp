@@ -27,12 +27,15 @@ protected:
 
     timer game_timer;
 
+    bool mouse_is_trapped;
+
     void initialize() override;
     void game_logic() override;
     // void on_quit(const SDL_QuitEvent &event) override;
     // void on_window_event(const SDL_WindowEvent &event) override;
-    // void on_keyboard_event(const SDL_KeyboardEvent &event) override;
-    // void on_mouse_motion_event(const SDL_MouseMotionEvent &event) override;
+    void on_keyboard_event(const SDL_KeyboardEvent &event) override;
+    void on_mouse_button_event(const SDL_MouseButtonEvent &event) override;
+    void on_mouse_motion_event(const SDL_MouseMotionEvent &event) override;
 };
 
 #endif // CORE_GAME_HPP

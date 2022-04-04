@@ -16,6 +16,14 @@ public:
 
     constexpr color(Uint8 r, Uint8 g, Uint8 b) : sdl_color{r, g, b, 0xff} {}
 
+    SDL_Color get() noexcept { return sdl_color; }
+
+    const SDL_Color &get() const noexcept { return sdl_color; }
+
+    SDL_Color *get_ptr() noexcept { return &sdl_color; }
+
+    const SDL_Color *get_ptr() const noexcept { return &sdl_color; }
+
     Uint8 red() const { return sdl_color.r; }
 
     Uint8 &red() { return sdl_color.r; }

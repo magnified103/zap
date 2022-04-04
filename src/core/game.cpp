@@ -42,13 +42,19 @@ void game::initialize() {
     }
 
     // create player
-    main_player = std::make_unique<player>(player_position, 0, 0.1, 0.003);
+    main_player = std::make_unique<player>(player_position, 0.1);
 
     // keyboard state
     keyboard_state = SDL_GetKeyboardState(nullptr);
 
     // camera
     main_camera = std::make_unique<camera>();
+
+    mouse_is_trapped = false;
+
+    // // trap cursor
+    // sdl::set_relative_mouse_mode(true);
+    // mouse_is_trapped = true;
 
     // timer start
     game_timer.start();
@@ -59,25 +65,52 @@ void game::game_logic() {
     game_timer.start();
     main_window->set_title("zap - fps=" + std::to_string(1000.0f / diff_time));
     int move_type = movement_type::none;
-    if (keyboard_state[SDL_SCANCODE_W]) {
-        move_type = movement_type::up;
-    } else if (keyboard_state[SDL_SCANCODE_S]) {
-        move_type = movement_type::down;
+    if (mouse_is_trapped) {
+        if (keyboard_state[SDL_SCANCODE_W]) {
+            move_type = movement_type::up;
+        } else if (keyboard_state[SDL_SCANCODE_S]) {
+            move_type = movement_type::down;
+        }
     }
     float c = 0;
-    if (keyboard_state[SDL_SCANCODE_A]) {
-        c = -1;
-    } else if (keyboard_state[SDL_SCANCODE_D]) {
-        c = 1;
-    }
-    auto player_position = main_player->try_move(move_type, diff_time);
+    // if (!mouse_is_trapped) {
+    //     if (keyboard_state[SDL_SCANCODE_A]) {
+    //         c = -1;
+    //     } else if (keyboard_state[SDL_SCANCODE_D]) {
+    //         c = 1;
+    //     }
+    // }
+    auto player_position =
+        main_player->try_move(*main_camera, move_type, diff_time);
     if (!main_map->collide(std::floor(player_position.x),
                            std::floor(player_position.y))) {
         main_player->set_position(player_position);
     }
-    main_player->rotate_camera(c, diff_time);
+    // main_player->rotate_camera(c, diff_time);
     main_renderer->clear_with(sdl::color{0x00, 0x00, 0x00});
-    main_camera->render(*main_renderer, *main_player, *main_map, window_width,
+    main_camera->render3d(*main_renderer, *main_player, *main_map, window_width,
                         window_height);
     main_renderer->present();
+}
+
+void game::on_keyboard_event(const SDL_KeyboardEvent &event) {
+    if (event.type == SDL_KEYUP && event.keysym.sym == SDLK_ESCAPE) {
+        sdl::set_relative_mouse_mode(false);
+        mouse_is_trapped = false;
+    }
+}
+
+void game::on_mouse_button_event(const SDL_MouseButtonEvent &event) {
+    if (event.type == SDL_MOUSEBUTTONUP) {
+        if (!mouse_is_trapped) {
+            sdl::set_relative_mouse_mode(true);
+            mouse_is_trapped = true;
+        }
+    }
+}
+
+void game::on_mouse_motion_event(const SDL_MouseMotionEvent &event) {
+    if (mouse_is_trapped) {
+        main_camera->rotate(event.xrel * 0.003, event.yrel * 0.003);
+    }
 }
