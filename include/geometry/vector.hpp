@@ -155,4 +155,26 @@ inline vec<L> normalize(const vec<L> &v) {
     return static_cast<float>(1) / std::sqrt(dot(v, v)) * v;
 }
 
+template <typename genType>
+inline bool intersect_ray_plane(const genType &orig, const genType &dir,
+                                const genType &planeOrig,
+                                const genType &planeNormal,
+                                float &intersectionDistance) {
+    float d = dot(dir, planeNormal);
+    float Epsilon = std::numeric_limits<float>::epsilon();
+
+    if (std::abs(d) > Epsilon) // if dir and planeNormal are not perpendicular
+    {
+        const float tmp_intersectionDistance =
+            dot(planeOrig - orig, planeNormal) / d;
+        if (tmp_intersectionDistance >
+            static_cast<float>(0)) { // allow only intersections
+            intersectionDistance = tmp_intersectionDistance;
+            return true;
+        }
+    }
+
+    return false;
+}
+
 #endif // GEOMETRY_VECTOR_HPP

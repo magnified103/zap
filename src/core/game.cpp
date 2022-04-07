@@ -87,9 +87,9 @@ void game::game_logic() {
         main_player->set_position(player_position);
     }
     // main_player->rotate_camera(c, diff_time);
-    main_renderer->clear_with(sdl::color{0x00, 0x00, 0x00});
+    main_renderer->clear_with(sdl::color{0x28, 0x2c, 0x44});
     main_camera->render3d(*main_renderer, *main_player, *main_map, window_width,
-                        window_height);
+                          window_height);
     main_renderer->present();
 }
 
@@ -111,6 +111,6 @@ void game::on_mouse_button_event(const SDL_MouseButtonEvent &event) {
 
 void game::on_mouse_motion_event(const SDL_MouseMotionEvent &event) {
     if (mouse_is_trapped) {
-        main_camera->rotate(event.xrel * 0.003, event.yrel * 0.003);
+        main_camera->rotate(event.xrel * 0.003, event.yrel * -0.003);
     }
 }

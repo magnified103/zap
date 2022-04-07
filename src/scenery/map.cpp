@@ -183,8 +183,8 @@ std::pair<float, sdl::color> map_grid::hit_distance(point2d<float> source,
 
 std::vector<wall> map_grid::get_walls() const {
     std::vector<wall> walls;
-    sdl::color color_parallel_x = sdl::colors::aqua;
-    sdl::color color_parallel_z = sdl::colors::aquamarine;
+    sdl::color color_parallel_x = sdl::color{0x78, 0x8c, 0x34};
+    sdl::color color_parallel_z = sdl::color{0x38, 0x88, 0x3c};
     float cell_size = grid_size;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -204,5 +204,13 @@ std::vector<wall> map_grid::get_walls() const {
             }
         }
     }
+    walls.push_back({{{0, 0}, {width * cell_size, 0}}, color_parallel_x});
+    walls.push_back({{{0, 0}, {0, height * cell_size}}, color_parallel_z});
+    walls.push_back(
+        {{{width * cell_size, 0}, {width * cell_size, height * cell_size}},
+         color_parallel_x});
+    walls.push_back(
+        {{{0, height * cell_size}, {width * cell_size, height * cell_size}},
+         color_parallel_z});
     return walls;
 }

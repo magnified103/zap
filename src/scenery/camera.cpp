@@ -77,8 +77,9 @@ void camera::render3d(sdl::renderer_handle renderer, player &player,
     vec3 eye_3d{eye_2d.x, wall_height * 0.5f, eye_2d.y};
 
     // center
-    vec3 center{std::cos(horizontal_angle), std::tan(vertical_angle),
-                std::sin(horizontal_angle)};
+    vec3 center =
+        eye_3d + vec3{std::cos(horizontal_angle), std::tan(vertical_angle),
+                      std::sin(horizontal_angle)};
 
     // aspect
     float aspect = width / height;
@@ -87,7 +88,7 @@ void camera::render3d(sdl::renderer_handle renderer, player &player,
     float fovy = 2 * std::atan(1.0f / aspect * std::tan(fov / 2));
 
     // projection matrix
-    auto projection = perspective(fovy, aspect, 0.1, 100);
+    auto projection = perspective(fovy, aspect, 0.01f, 1000.0f);
 
     // view matrix
     auto view = look_at(eye_3d, center, vec3{0, 1, 0});
@@ -104,6 +105,15 @@ void camera::render3d(sdl::renderer_handle renderer, player &player,
                   return dot(vec_a, vec_a) > dot(vec_b, vec_b);
               });
 
+    static bool debug = false;
+
+    if (!debug) {
+        sdl::log_info("player position: (%.2f %.2f)", eye_2d.x, eye_2d.y);
+    }
+
+    width /= 2;
+    height /= 2;
+
     // then print them one by one from the furthest
     for (const auto &wall : walls) {
         // get coordinates
@@ -118,18 +128,61 @@ void camera::render3d(sdl::renderer_handle renderer, player &player,
         c = translation * c;
         d = translation * d;
 
-        // cast to SDL_Vertex form
-        const SDL_Vertex vertex_a{{width * a.x, height * a.y},
-                                  wall.color.get()};
-        const SDL_Vertex vertex_b{{width * b.x, height * b.y},
-                                  wall.color.get()};
-        const SDL_Vertex vertex_c{{width * c.x, height * c.y},
-                                  wall.color.get()};
-        const SDL_Vertex vertex_d{{width * d.x, height * d.y},
-                                  wall.color.get()};
+        constexpr auto reduce = [](vec4 &vec) {
+            const float w = std::abs(vec.w);
+            if (w) {
+                vec.x /= w;
+                vec.y /= w;
+                vec.z /= w;
+                vec.w /= w;
+            }
+        };
 
-        // render two triangles
-        renderer.render_triangles({vertex_a, vertex_b, vertex_c});
-        renderer.render_triangles({vertex_b, vertex_c, vertex_d});
+        // reduce
+        reduce(a);
+        reduce(b);
+        reduce(c);
+        reduce(d);
+
+        // render a normalized triangle without validating its components
+        const auto render_no_check = [&](const vec4 &vec_a, const vec4 &vec_b,
+                                         const vec4 &vec_c) {
+            const SDL_Vertex vertex_a{
+                {width * (vec_a.x + 1), height * (-vec_a.y + 1)},
+                wall.color.get()};
+            const SDL_Vertex vertex_b{
+                {width * (vec_b.x + 1), height * (-vec_b.y + 1)},
+                wall.color.get()};
+            const SDL_Vertex vertex_c{
+                {width * (vec_c.x + 1), height * (-vec_c.y + 1)},
+                wall.color.get()};
+            renderer.render_triangles({vertex_a, vertex_b, vertex_c});
+        };
+
+        // render a normalized triangle with additional checks
+        const auto render = [&](const vec4 &vec_a, const vec4 &vec_b,
+                                const vec4 &vec_c) {
+            const auto validate = [](const vec4 &a) -> bool {
+                return std::abs(a.x) <= 1.0f && std::abs(a.y) <= 1.0f &&
+                       std::abs(a.z) <= 1.0f;
+            };
+            if (vec_a.w > 0 && vec_b.w > 0 && vec_c.w > 0) {
+                render_no_check(vec_a, vec_b, vec_c);
+            } else if (vec_a.w > 0 || vec_b.w > 0 || vec_c.w > 0) {
+            }
+        };
+
+        // render corresponding triangles
+        render(a, b, c);
+        render(b, c, d);
+
+        if (!debug) {
+            sdl::log_info("endpoints: (%.2f, %.2f), (%.2f, %.2f)",
+                          wall.endpoints[0].x, wall.endpoints[0].y,
+                          wall.endpoints[1].x, wall.endpoints[1].y);
+            sdl::log_info("translated: (%.2f, %.2f, %.2f), (%.2f, %.2f, %.2f)",
+                          a.x, a.y, a.z, b.x, b.y, b.z);
+        }
     }
+    debug = true;
 }
