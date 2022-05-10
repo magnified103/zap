@@ -77,6 +77,9 @@ private:
         case SDL_MOUSEBUTTONUP:
             data.emplace<SDL_MouseButtonEvent>(event.button);
             break;
+        case SDL_MOUSEWHEEL:
+            data.emplace<SDL_MouseWheelEvent>(event.wheel);
+            break;
         default:
             reset_state();
             break;

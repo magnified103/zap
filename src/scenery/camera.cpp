@@ -180,8 +180,8 @@ void camera::render3d(sdl::renderer_handle renderer, player &player,
             sdl::log_info("endpoints: (%.2f, %.2f), (%.2f, %.2f)",
                           wall.endpoints[0].x, wall.endpoints[0].y,
                           wall.endpoints[1].x, wall.endpoints[1].y);
-            sdl::log_info("translated: (%.2f, %.2f, %.2f), (%.2f, %.2f, %.2f)",
-                          a.x, a.y, a.z, b.x, b.y, b.z);
+            sdl::log_info("translated: (%.2f, %.2f, %.2f, %.2f), (%.2f, %.2f, %.2f, %.2f)",
+                          a.x, a.y, a.z, a.w, b.x, b.y, b.z, b.w);
         }
     }
     debug = true;

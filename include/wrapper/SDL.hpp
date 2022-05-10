@@ -28,10 +28,27 @@ public:
     ~sdl() noexcept { SDL_Quit(); }
 };
 
+class img {
+public:
+    img(int flags) {
+        if (IMG_Init(flags) != flags) {
+            throw img_exception();
+        }
+    }
+
+    img() : img(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF) {}
+
+    ~img() noexcept { IMG_Quit(); }
+};
+
 inline void delay(Uint32 ms) { SDL_Delay(ms); }
 
 inline int set_relative_mouse_mode(bool enabled) {
     return SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
+}
+
+inline int gl_set_swap_interval(int interval) {
+    return SDL_GL_SetSwapInterval(interval);
 }
 
 } // namespace sdl

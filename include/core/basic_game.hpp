@@ -41,6 +41,7 @@ protected:
     virtual void on_keyboard_event(const SDL_KeyboardEvent &event) {}
     virtual void on_mouse_button_event(const SDL_MouseButtonEvent &event) {}
     virtual void on_mouse_motion_event(const SDL_MouseMotionEvent &event) {}
+    virtual void on_mouse_wheel_event(const SDL_MouseWheelEvent &event) {}
 };
 
 #endif // CORE_BASIC_GAME_HPP

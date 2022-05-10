@@ -2,9 +2,12 @@
 #include <memory>
 
 #include "../include/core/game.hpp"
+#include "../include/opengl/loader.hpp"
 
 int main(int argc, char *argv[]) {
     sdl::sdl sdl;
+    sdl::img img;
+    gles_loader loader;
 
     // declare game
     std::unique_ptr<basic_game> zap = std::make_unique<game>();

@@ -13,13 +13,13 @@
 map_grid::map_grid(std::istream &in) {
     in >> height >> width >> grid_size;
     if (width <= 0 || height <= 0 || grid_size <= 0) {
-        throw sdl::exception("Grid sizes must be positive integers");
+        throw std::runtime_error("Grid sizes must be positive integers");
     }
     grid.assign(height, std::vector<int>(width));
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (!(in >> grid[i][j])) {
-                throw sdl::exception("Bad grid data");
+                throw std::runtime_error("Bad grid data");
             }
         }
     }
@@ -51,7 +51,7 @@ sdl::surface map_grid::get_surface() const {
 
 int map_grid::get_value(int x, int y) const {
     if (y < 0 || y >= height || x < 0 || x >= width) {
-        throw sdl::exception("Out of bound");
+        throw std::runtime_error("Out of bound");
     }
     return grid[y][x];
 }
@@ -72,7 +72,7 @@ std::pair<int, int> map_grid::get_starting_position() const {
         }
     }
     if (candidates.size() != 1) {
-        throw sdl::exception("Wrong number of starting potisions");
+        throw std::runtime_error("Wrong number of starting potisions");
     }
     return candidates[0];
 }

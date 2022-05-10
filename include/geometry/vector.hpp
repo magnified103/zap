@@ -1,6 +1,10 @@
 #ifndef GEOMETRY_VECTOR_HPP
 #define GEOMETRY_VECTOR_HPP
 
+#include <cmath>
+
+#include "cereal/cereal.hpp"
+
 template <int L>
 struct vec;
 
@@ -15,6 +19,12 @@ struct vec<2> {
     vec() = default;
     explicit vec(float scalar);
     vec(float x, float y);
+
+    // cereal specific
+    template <class Archive>
+    void serialize(Archive &archive) {
+        archive(CEREAL_NVP(x), CEREAL_NVP(y));
+    }
 };
 
 template <>
@@ -25,6 +35,12 @@ struct vec<3> {
     vec() = default;
     explicit vec(float scalar);
     vec(float x, float y, float z);
+
+    // cereal specific
+    template <class Archive>
+    void serialize(Archive &archive) {
+        archive(CEREAL_NVP(x), CEREAL_NVP(y), CEREAL_NVP(z));
+    }
 };
 
 template <>
