@@ -1,10 +1,16 @@
 #include <fstream>
 #include <memory>
+#include <string>
 
-#include "../include/core/game.hpp"
-#include "../include/opengl/loader.hpp"
+#include "core/game.hpp"
+#include "core/map_editor.hpp"
+#include "opengl/loader.hpp"
 
 int main(int argc, char *argv[]) {
+    if (argc == 3 && std::string(argv[1]) == "edit") {
+        map_editor(std::string(argv[2]));
+        return 0;
+    }
     sdl::sdl sdl;
     sdl::img img;
     gles_loader loader;
@@ -13,7 +19,7 @@ int main(int argc, char *argv[]) {
     std::unique_ptr<basic_game> zap = std::make_unique<game>();
 
     // run game
-    return zap->run();
+    return zap->run(argc, argv);
 
     // map_grid grid(std::ifstream("map.txt"));
 

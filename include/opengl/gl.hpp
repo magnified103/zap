@@ -26,6 +26,7 @@ extern GL_APICALL void (GL_APIENTRYP glEnable) (GLenum cap);
 extern GL_APICALL void (GL_APIENTRYP glDepthFunc) (GLenum func);
 extern GL_APICALL GLenum (GL_APIENTRYP glGetError) (void);
 extern GL_APICALL void (GL_APIENTRYP glDebugMessageCallbackKHR) (GLDEBUGPROCKHR callback, const void *userParam);
+extern GL_APICALL void (GL_APIENTRYP glBlendFunc) (GLenum sfactor, GLenum dfactor);
 
 // program input capabilities
 extern GL_APICALL GLint (GL_APIENTRYP glGetUniformLocation) (GLuint program, const GLchar *name);

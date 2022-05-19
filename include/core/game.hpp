@@ -4,14 +4,16 @@
 #include <memory>
 
 // #include "../scenery/camera.hpp"
-#include "../scenery/camera3d.hpp"
+#include "scenery/camera3d.hpp"
 // #include "../scenery/map.hpp"
-#include "../opengl/gl.hpp"
-#include "../scenery/map3d.hpp"
+#include "entity/player3d.hpp"
+#include "opengl/gl.hpp"
+#include "scenery/map3d.hpp"
 // #include "../scenery/player.hpp"
-#include "../timer/timer.hpp"
-#include "../wrapper/SDL.hpp"
-#include "basic_game.hpp"
+#include "core/basic_game.hpp"
+#include "physics/physics.hpp"
+#include "timer/timer.hpp"
+#include "wrapper/SDL.hpp"
 
 class game final : public basic_game {
 public:
@@ -19,9 +21,9 @@ protected:
     int window_width;
     int window_height;
 
-    // std::unique_ptr<player> main_player;
+    std::unique_ptr<player3d> main_player;
     // std::unique_ptr<camera> main_camera;
-    std::unique_ptr<camera3d> main_camera;
+    // std::unique_ptr<camera3d> main_camera;
     // std::unique_ptr<map_grid> main_map;
     std::unique_ptr<map3d> main_map;
 
@@ -30,7 +32,9 @@ protected:
     GLuint shader_program;
 
     std::unique_ptr<sdl::window> main_window;
-    std::unique_ptr<sdl::renderer> main_renderer;
+    // std::unique_ptr<sdl::renderer> main_renderer;
+
+    std::unique_ptr<physics> physics_engine;
 
     const Uint8 *keyboard_state;
 
@@ -38,7 +42,7 @@ protected:
 
     bool mouse_is_trapped;
 
-    void initialize() override;
+    void initialize(int argc, char *argv[]) override;
     void game_logic() override;
     int cleanup() override;
     // void on_quit(const SDL_QuitEvent &event) override;

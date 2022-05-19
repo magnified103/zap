@@ -18,6 +18,7 @@ struct mat<4, 4> {
     vec<4> value[4];
     mat() = default;
     mat(float m);
+    mat(vec<4> const &v0, vec<4> const &v1, vec<4> const &v2, vec<4> const &v3);
     vec<4> &operator[](int i);
     vec<4> const &operator[](int i) const;
 };
@@ -26,9 +27,18 @@ inline mat<4, 4>::mat(float m)
     : value{vec<4>{m, 0, 0, 0}, vec<4>{0, m, 0, 0}, vec<4>{0, 0, m, 0},
             vec<4>{0, 0, 0, m}} {}
 
+inline mat<4, 4>::mat(vec<4> const &v0, vec<4> const &v1, vec<4> const &v2,
+                      vec<4> const &v3)
+    : value{vec<4>(v0), vec<4>(v1), vec<4>(v2), vec<4>(v3)} {}
+
 inline vec<4> &mat<4, 4>::operator[](int i) { return value[i]; }
 
 inline vec<4> const &mat<4, 4>::operator[](int i) const { return value[i]; }
+
+inline mat<4, 4> operator+(mat<4, 4> const &m1, mat<4, 4> const &m2) {
+    return mat<4, 4>(m1[0] + m2[0], m1[1] + m2[1], m1[2] + m2[2],
+                     m1[3] + m2[3]);
+}
 
 inline vec<4> operator*(const mat<4, 4> &m, const vec<4> &v) {
     const vec<4> Mov0(v[0]);
@@ -81,6 +91,35 @@ inline mat<4, 4> perspective(float fovy, float aspect, float zNear,
     Result[2][2] = -(zFar + zNear) / (zFar - zNear);
     Result[2][3] = -static_cast<float>(1);
     Result[3][2] = -(static_cast<float>(2) * zFar * zNear) / (zFar - zNear);
+    return Result;
+}
+
+inline mat<4, 4> rotate(mat<4, 4> const &m, float angle, vec<3> const &v) {
+    float const a = angle;
+    float const c = cos(a);
+    float const s = sin(a);
+
+    vec<3> axis(normalize(v));
+    vec<3> temp((float(1) - c) * axis);
+
+    mat<4, 4> Rotate;
+    Rotate[0][0] = c + temp[0] * axis[0];
+    Rotate[0][1] = temp[0] * axis[1] + s * axis[2];
+    Rotate[0][2] = temp[0] * axis[2] - s * axis[1];
+
+    Rotate[1][0] = temp[1] * axis[0] - s * axis[2];
+    Rotate[1][1] = c + temp[1] * axis[1];
+    Rotate[1][2] = temp[1] * axis[2] + s * axis[0];
+
+    Rotate[2][0] = temp[2] * axis[0] + s * axis[1];
+    Rotate[2][1] = temp[2] * axis[1] - s * axis[0];
+    Rotate[2][2] = c + temp[2] * axis[2];
+
+    mat<4, 4> Result;
+    Result[0] = m[0] * Rotate[0][0] + m[1] * Rotate[0][1] + m[2] * Rotate[0][2];
+    Result[1] = m[0] * Rotate[1][0] + m[1] * Rotate[1][1] + m[2] * Rotate[1][2];
+    Result[2] = m[0] * Rotate[2][0] + m[1] * Rotate[2][1] + m[2] * Rotate[2][2];
+    Result[3] = m[3];
     return Result;
 }
 

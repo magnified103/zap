@@ -4,20 +4,25 @@
 
 #include "geometry/matrix.hpp"
 #include "geometry/trigonometric.hpp"
+#include "geometry/vector.hpp"
 #include "opengl/gl.hpp"
 #include "scenery/block.hpp"
 #include "scenery/camera3d.hpp"
 #include "scenery/texture.hpp"
 #include "wrapper/logging.hpp"
 
+vec3 camera3d::get_view_vector() {
+    return vec3{std::cos(horizontal_angle), std::tan(vertical_angle), std::sin(horizontal_angle)};
+}
+
 void camera3d::rotate(float horizontal_delta, float vertical_delta) {
     horizontal_angle += horizontal_delta;
     vertical_angle += vertical_delta;
 }
 
-void camera3d::render(vec3 eye, vec3 up, const map3d &map,
-                      const std::vector<GLuint> surface_ids, float screen_width,
-                      float screen_height, GLuint shader_program) {
+void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
+                      const std::vector<GLuint> &surface_ids, const float &screen_width,
+                      const float &screen_height, const GLuint &shader_program) {
 
     float aspect = screen_width / screen_height;
 
@@ -25,8 +30,7 @@ void camera3d::render(vec3 eye, vec3 up, const map3d &map,
 
     auto projection = perspective(fovy, aspect, near, far);
 
-    vec3 direction(std::cos(horizontal_angle), std::tan(vertical_angle),
-                   std::sin(horizontal_angle));
+    vec3 direction = normalize(get_view_vector());
 
     auto view = look_at(eye, eye + direction, up);
 
@@ -35,156 +39,212 @@ void camera3d::render(vec3 eye, vec3 up, const map3d &map,
     mat4 MVP = projection * view * model;
 
     // map triangles to their associated surface id
-    std::map<GLuint, std::pair<std::vector<vec3>, std::vector<vec2>>>
-        map_triangles;
+    std::map<GLuint, std::pair<std::vector<vec3>, std::vector<vec2>>> map_triangles;
 
+    // render walls and obstacles
     for (const auto &tmp : map.terrain) {
         for (const auto &tile : tmp) {
-            auto create_triangles_for_texture = [&](const vec3 &origin,
-                                                    const texture &texture) {
+            auto create_triangles_for_texture = [&](const vec3 &origin, const texture &texture) {
                 if (texture.surface_id < 0) {
                     return;
                 }
-                auto &[positions, UVs] =
-                    map_triangles[surface_ids[texture.surface_id]];
+                auto &[positions, UVs] = map_triangles[surface_ids[texture.surface_id]];
                 for (const auto &position : texture.positions) {
                     positions.push_back(origin + position);
                 }
                 UVs.insert(UVs.end(), texture.UVs.begin(), texture.UVs.end());
             };
-            auto create_triangles_for_block = [&](vec3 origin,
-                                                  const block &block) {
+            auto create_triangles_for_block = [&](vec3 origin, const block &block) {
                 origin.y += block.height_bottom;
                 if (block.front_id >= 0) {
-                    create_triangles_for_texture(origin,
-                                                 map.textures[block.front_id]);
+                    create_triangles_for_texture(origin, map.textures[block.front_id]);
                 }
                 if (block.left_id >= 0) {
-                    create_triangles_for_texture(origin,
-                                                 map.textures[block.left_id]);
+                    create_triangles_for_texture(origin, map.textures[block.left_id]);
                 }
                 if (block.back_id >= 0) {
-                    create_triangles_for_texture(origin,
-                                                 map.textures[block.back_id]);
+                    create_triangles_for_texture(origin, map.textures[block.back_id]);
                 }
                 if (block.right_id >= 0) {
-                    create_triangles_for_texture(origin,
-                                                 map.textures[block.right_id]);
+                    create_triangles_for_texture(origin, map.textures[block.right_id]);
                 }
                 if (block.top_id >= 0) {
-                    create_triangles_for_texture(origin,
-                                                 map.textures[block.top_id]);
+                    create_triangles_for_texture(origin, map.textures[block.top_id]);
                 }
                 if (block.bottom_id >= 0) {
-                    create_triangles_for_texture(origin,
-                                                 map.textures[block.bottom_id]);
+                    create_triangles_for_texture(origin, map.textures[block.bottom_id]);
                 }
             };
             if (tile.top_id >= 0) {
-                create_triangles_for_block(tile.point_a,
-                                           map.blocks[tile.top_id]);
+                create_triangles_for_block(tile.point_a, map.blocks[tile.top_id]);
             }
             if (tile.middle_id >= 0) {
-                create_triangles_for_block(tile.point_a,
-                                           map.blocks[tile.middle_id]);
+                create_triangles_for_block(tile.point_a, map.blocks[tile.middle_id]);
             }
             if (tile.bottom_id >= 0) {
-                create_triangles_for_block(tile.point_a,
-                                           map.blocks[tile.bottom_id]);
+                create_triangles_for_block(tile.point_a, map.blocks[tile.bottom_id]);
             }
         }
     }
 
-    // enable shader program
-    glUseProgram(shader_program);
-
-    // get texture location in program
-    GLuint texture_loc =
-        glGetUniformLocation(shader_program, "texture_sampler");
-
-    // get mvp location in program
-    GLuint MVP_loc = glGetUniformLocation(shader_program, "MVP");
-
-    static bool debug = false;
-    for (const auto &[surface_id, triangles] : map_triangles) {
-
-        // i hate debug lol
-        if (!debug) {
-            debug = 1;
-            sdl::log_info("projection [[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, "
-                          "%.2f, %.2f], "
-                          "[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]]",
-                          projection[0].x, projection[0].y, projection[0].z,
-                          projection[0].w, projection[1].x, projection[1].y,
-                          projection[1].z, projection[1].w, projection[2].x,
-                          projection[2].y, projection[2].z, projection[2].w,
-                          projection[3].x, projection[3].y, projection[3].z,
-                          projection[3].w);
-            sdl::log_info(
-                "view [[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f], "
-                "[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]]",
-                view[0].x, view[0].y, view[0].z, view[0].w, view[1].x,
-                view[1].y, view[1].z, view[1].w, view[2].x, view[2].y,
-                view[2].z, view[2].w, view[3].x, view[3].y, view[3].z,
-                view[3].w);
-            sdl::log_info(
-                "MVP [[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f], "
-                "[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]]",
-                MVP[0].x, MVP[0].y, MVP[0].z, MVP[0].w, MVP[1].x, MVP[1].y,
-                MVP[1].z, MVP[1].w, MVP[2].x, MVP[2].y, MVP[2].z, MVP[2].w,
-                MVP[3].x, MVP[3].y, MVP[3].z, MVP[3].w);
-            sdl::log_info("eye (%.2f, %.2f, %.2f)", eye.x, eye.y, eye.z);
-            sdl::log_info("direction (%.2f, %.2f, %.2f)", direction.x,
-                          direction.y, direction.z);
-            for (const auto &pt : triangles.first) {
-                const auto translated_pt = MVP * vec4{pt.x, pt.y, pt.z, 1};
-                sdl::log_info("(%.2f, %.2f, %.2f) (%.2f, %.2f, %.2f, %.2f)",
-                              pt.x, pt.y, pt.z, translated_pt.x,
-                              translated_pt.y, translated_pt.z,
-                              translated_pt.w);
-            }
-            for (const auto &uv : triangles.second) {
-                sdl::log_info("(%.2f, %.2f)", uv.x, uv.y);
-            }
+    // render projectiles
+    for (const auto &projectile : map.projectiles) {
+        if (projectile.phase >= 2) {
+            continue;
         }
+        if (projectile.phase == 0 && projectile.base.move_id < 0) {
+            continue;
+        }
+        if (projectile.phase == 1 && projectile.base.end_id < 0) {
+            continue;
+        }
+        vec3 up_ray = up - direction * (dot(direction, up) / dot(direction, direction));
+        const vec4 temp = ::rotate(mat4{1}, radians(-90.0f), direction) * vec4{up_ray, 1};
+        vec3 left_ray{temp.x, temp.y, temp.z};
 
-        // bind texture in GL_TEXTURE0
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, surface_id);
-        glUniform1i(texture_loc, 0);
+        // normalize axis
+        up_ray = normalize(up_ray) *
+                 (projectile.phase == 0 ? projectile.base.move_size : projectile.base.end_size);
+        left_ray = normalize(left_ray) *
+                   (projectile.phase == 0 ? projectile.base.move_size : projectile.base.end_size);
 
-        // bind MVP
-        glUniformMatrix4fv(MVP_loc, 1, GL_FALSE, &MVP[0][0]);
+        auto &[positions, UVs] =
+            map_triangles[surface_ids[projectile.phase == 0 ? projectile.base.move_id
+                                                            : projectile.base.end_id]];
+        positions.push_back(projectile.position + left_ray - up_ray);
+        positions.push_back(projectile.position + left_ray + up_ray);
+        positions.push_back(projectile.position - left_ray - up_ray);
+        positions.push_back(projectile.position + left_ray + up_ray);
+        positions.push_back(projectile.position - left_ray - up_ray);
+        positions.push_back(projectile.position - left_ray + up_ray);
 
-        // bind positions
-        glEnableVertexAttribArray(0);
-        GLuint position_buffer;
-        glGenBuffers(1, &position_buffer);
-        glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
-        glBufferData(GL_ARRAY_BUFFER,
-                     triangles.first.size() *
-                         sizeof(decltype(triangles.first)::value_type),
-                     triangles.first.data(), GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
-
-        // bind UVs
-        glEnableVertexAttribArray(1);
-        GLuint UV_buffer;
-        glGenBuffers(1, &UV_buffer);
-        glBindBuffer(GL_ARRAY_BUFFER, UV_buffer);
-        glBufferData(GL_ARRAY_BUFFER,
-                     triangles.second.size() *
-                         sizeof(decltype(triangles.second)::value_type),
-                     triangles.second.data(), GL_STATIC_DRAW);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void *)0);
-
-        // draw triangles
-        glDrawArrays(GL_TRIANGLES, 0, triangles.first.size());
-
-        // disable stuffs
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(1);
-        glDeleteBuffers(1, &position_buffer);
-        glDeleteBuffers(1, &UV_buffer);
+        // their associated UVs
+        UVs.push_back({0, 0});
+        UVs.push_back({0, 1});
+        UVs.push_back({1, 0});
+        UVs.push_back({0, 1});
+        UVs.push_back({1, 0});
+        UVs.push_back({1, 1});
     }
+
+    auto render_triangles = [&]() {
+        // enable shader program
+        glUseProgram(shader_program);
+
+        // get texture location in program
+        GLuint texture_loc = glGetUniformLocation(shader_program, "texture_sampler");
+
+        // get mvp location in program
+        GLuint MVP_loc = glGetUniformLocation(shader_program, "MVP");
+
+        static bool debug = true;
+        for (const auto &[surface_id, triangles] : map_triangles) {
+
+            // i hate debug lol
+            if (!debug) {
+                debug = 1;
+                sdl::log_info("projection [[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, "
+                              "%.2f, %.2f], "
+                              "[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]]",
+                              projection[0].x, projection[0].y, projection[0].z, projection[0].w,
+                              projection[1].x, projection[1].y, projection[1].z, projection[1].w,
+                              projection[2].x, projection[2].y, projection[2].z, projection[2].w,
+                              projection[3].x, projection[3].y, projection[3].z, projection[3].w);
+                sdl::log_info("view [[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f], "
+                              "[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]]",
+                              view[0].x, view[0].y, view[0].z, view[0].w, view[1].x, view[1].y,
+                              view[1].z, view[1].w, view[2].x, view[2].y, view[2].z, view[2].w,
+                              view[3].x, view[3].y, view[3].z, view[3].w);
+                sdl::log_info("MVP [[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f], "
+                              "[%.2f, %.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]]",
+                              MVP[0].x, MVP[0].y, MVP[0].z, MVP[0].w, MVP[1].x, MVP[1].y, MVP[1].z,
+                              MVP[1].w, MVP[2].x, MVP[2].y, MVP[2].z, MVP[2].w, MVP[3].x, MVP[3].y,
+                              MVP[3].z, MVP[3].w);
+                sdl::log_info("eye (%.2f, %.2f, %.2f)", eye.x, eye.y, eye.z);
+                sdl::log_info("direction (%.2f, %.2f, %.2f)", direction.x, direction.y,
+                              direction.z);
+                for (const auto &pt : triangles.first) {
+                    const auto translated_pt = MVP * vec4{pt.x, pt.y, pt.z, 1};
+                    sdl::log_info("(%.2f, %.2f, %.2f) (%.2f, %.2f, %.2f, %.2f)", pt.x, pt.y, pt.z,
+                                  translated_pt.x, translated_pt.y, translated_pt.z,
+                                  translated_pt.w);
+                }
+                for (const auto &uv : triangles.second) {
+                    sdl::log_info("(%.2f, %.2f)", uv.x, uv.y);
+                }
+            }
+
+            // bind texture in GL_TEXTURE0
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, surface_id);
+            glUniform1i(texture_loc, 0);
+
+            // bind MVP
+            glUniformMatrix4fv(MVP_loc, 1, GL_FALSE, &MVP[0][0]);
+
+            // bind positions
+            glEnableVertexAttribArray(0);
+            GLuint position_buffer;
+            glGenBuffers(1, &position_buffer);
+            glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
+            glBufferData(GL_ARRAY_BUFFER,
+                         triangles.first.size() * sizeof(decltype(triangles.first)::value_type),
+                         triangles.first.data(), GL_STATIC_DRAW);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+
+            // bind UVs
+            glEnableVertexAttribArray(1);
+            GLuint UV_buffer;
+            glGenBuffers(1, &UV_buffer);
+            glBindBuffer(GL_ARRAY_BUFFER, UV_buffer);
+            glBufferData(GL_ARRAY_BUFFER,
+                         triangles.second.size() * sizeof(decltype(triangles.second)::value_type),
+                         triangles.second.data(), GL_STATIC_DRAW);
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void *)0);
+
+            // draw triangles
+            glDrawArrays(GL_TRIANGLES, 0, triangles.first.size());
+
+            // disable stuffs
+            glDisableVertexAttribArray(0);
+            glDisableVertexAttribArray(1);
+            glDeleteBuffers(1, &position_buffer);
+            glDeleteBuffers(1, &UV_buffer);
+        }
+    };
+
+    render_triangles();
+    map_triangles.clear();
+
+    // render monsters
+    for (const auto &monster : map.monsters) {
+        vec3 direction_ray{direction.x, 0, direction.z};
+        vec3 up_ray = up;
+        const vec4 temp = ::rotate(mat4{1}, radians(-90.0f), direction_ray) * vec4{up_ray, 1};
+        vec3 left_ray{temp.x, temp.y, temp.z};
+
+        // normalize axis
+        up_ray = normalize(up_ray) * monster.hitbox_height * 0.5;
+        left_ray = normalize(left_ray) * monster.hitbox_radius;
+
+        auto position = monster.current_movement.position;
+        position.y += monster.hitbox_height * 0.5;
+
+        auto &[positions, UVs] = map_triangles[surface_ids[monster.front_id]];
+        positions.push_back(position + left_ray - up_ray);
+        positions.push_back(position + left_ray + up_ray);
+        positions.push_back(position - left_ray - up_ray);
+        positions.push_back(position + left_ray + up_ray);
+        positions.push_back(position - left_ray - up_ray);
+        positions.push_back(position - left_ray + up_ray);
+
+        // their associated UVs
+        UVs.push_back({0, 0});
+        UVs.push_back({0, 1});
+        UVs.push_back({1, 0});
+        UVs.push_back({0, 1});
+        UVs.push_back({1, 0});
+        UVs.push_back({1, 1});
+    }
+    render_triangles();
 }

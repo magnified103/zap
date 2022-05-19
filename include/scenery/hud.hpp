@@ -1,0 +1,6 @@
+#ifndef SCENERY_HUD_HPP
+#define SCENERY_HUD_HPP
+
+
+
+#endif // SCENERY_HUD_HPP

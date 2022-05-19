@@ -11,6 +11,8 @@ struct tile {
     int bottom_id;
     vec3 point_a;
     vec3 point_b;
+    float floor_level;
+    float ceil_level;
     float lightning;
 
     // cereal specific
@@ -18,6 +20,7 @@ struct tile {
     void serialize(Archive &archive) {
         archive(CEREAL_NVP(top_id), CEREAL_NVP(middle_id),
                 CEREAL_NVP(bottom_id), CEREAL_NVP(point_a), CEREAL_NVP(point_b),
+                CEREAL_NVP(floor_level), CEREAL_NVP(ceil_level),
                 CEREAL_NVP(lightning));
     }
 };

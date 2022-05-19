@@ -35,6 +35,8 @@ struct vec<3> {
     vec() = default;
     explicit vec(float scalar);
     vec(float x, float y, float z);
+    float &operator[](int i);
+    float const &operator[](int i) const;
 
     // cereal specific
     template <class Archive>
@@ -42,6 +44,30 @@ struct vec<3> {
         archive(CEREAL_NVP(x), CEREAL_NVP(y), CEREAL_NVP(z));
     }
 };
+
+inline float &vec<3>::operator[](int i) {
+    switch (i) {
+    default:
+    case 0:
+        return x;
+    case 1:
+        return y;
+    case 2:
+        return z;
+    }
+}
+
+inline float const &vec<3>::operator[](int i) const {
+    switch (i) {
+    default:
+    case 0:
+        return x;
+    case 1:
+        return y;
+    case 2:
+        return z;
+    }
+}
 
 template <>
 struct vec<4> {
@@ -52,9 +78,14 @@ struct vec<4> {
     vec() = default;
     explicit vec(float scalar);
     vec(float x, float y, float z, float w);
+    vec(vec<3> const &_xyz, float _w);
     float &operator[](int i);
     float const &operator[](int i) const;
 };
+
+inline vec<4>::vec(vec<3> const &_xyz, float _w)
+    : x(static_cast<float>(_xyz.x)), y(static_cast<float>(_xyz.y)),
+      z(static_cast<float>(_xyz.z)), w(static_cast<float>(_w)) {}
 
 inline float &vec<4>::operator[](int i) {
     switch (i) {

@@ -32,6 +32,7 @@ context_loader::context_loader(SDL_Window *window)
     SDL_GL_InitializeFunction(glDepthFunc);
     SDL_GL_InitializeFunction(glGetError);
     SDL_GL_InitializeFunction(glDebugMessageCallbackKHR);
+    SDL_GL_InitializeFunction(glBlendFunc);
 
     // program input capabilities
     SDL_GL_InitializeFunction(glGetUniformLocation);

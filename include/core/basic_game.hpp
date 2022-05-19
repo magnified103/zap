@@ -5,8 +5,8 @@
 
 class basic_game {
 public:
-    int run() {
-        initialize();
+    int run(int argc, char *argv[]) {
+        initialize(argc, argv);
         dispatcher.bind<SDL_QuitEvent>().to<&basic_game::on_quit>(this);
         dispatcher.bind<SDL_WindowEvent>().to<&basic_game::on_window_event>(
             this);
@@ -31,7 +31,7 @@ protected:
         dispatcher;
     bool game_is_running{true};
 
-    virtual void initialize() {}
+    virtual void initialize(int argc, char *argv[]) {}
     virtual void game_logic() {}
     virtual int cleanup() { return 0; }
     virtual void on_quit(const SDL_QuitEvent &event) {

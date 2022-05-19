@@ -1,6 +1,6 @@
 CXX					=	g++
-override CXXFLAGS	+=	$(shell pkg-config sdl2 SDL2_image --cflags) -g -std=c++17 -I./include
-override LDFLAGS	+=	$(shell pkg-config sdl2 SDL2_image --libs) -g
+override CXXFLAGS	+=	$(shell pkg-config sdl2 SDL2_image readline --cflags) -g -std=c++17 -I./include
+override LDFLAGS	+=	$(shell pkg-config sdl2 SDL2_image readline --libs) -g
 
 SRCS				=	$(shell find -name "*.cpp")
 OBJS				=	$(patsubst ./src/%.cpp,build/%.o,$(SRCS))

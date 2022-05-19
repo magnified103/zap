@@ -21,6 +21,7 @@ GL_APICALL void (GL_APIENTRYP glEnable) (GLenum cap) = nullptr;
 GL_APICALL void (GL_APIENTRYP glDepthFunc) (GLenum func) = nullptr;
 GL_APICALL GLenum (GL_APIENTRYP glGetError) (void) = nullptr;
 GL_APICALL void (GL_APIENTRYP glDebugMessageCallbackKHR) (GLDEBUGPROCKHR callback, const void *userParam) = nullptr;
+GL_APICALL void (GL_APIENTRYP glBlendFunc) (GLenum sfactor, GLenum dfactor) = nullptr;
 
 // program input capabilities
 GL_APICALL GLint (GL_APIENTRYP glGetUniformLocation) (GLuint program, const GLchar *name) = nullptr;
