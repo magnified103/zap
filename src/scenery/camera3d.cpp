@@ -39,50 +39,37 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
     mat4 MVP = projection * view * model;
 
     // map triangles to their associated surface id
-    std::map<GLuint, std::pair<std::vector<vec3>, std::vector<vec2>>> map_triangles;
+    std::map<int, std::pair<std::vector<vec3>, std::vector<vec2>>> map_triangles;
 
     // render walls and obstacles
-    for (const auto &tmp : map.terrain) {
-        for (const auto &tile : tmp) {
-            auto create_triangles_for_texture = [&](const vec3 &origin, const texture &texture) {
-                if (texture.surface_id < 0) {
-                    return;
-                }
-                auto &[positions, UVs] = map_triangles[surface_ids[texture.surface_id]];
-                for (const auto &position : texture.positions) {
-                    positions.push_back(origin + position);
-                }
-                UVs.insert(UVs.end(), texture.UVs.begin(), texture.UVs.end());
-            };
-            auto create_triangles_for_block = [&](vec3 origin, const block &block) {
-                origin.y += block.height_bottom;
-                if (block.front_id >= 0) {
-                    create_triangles_for_texture(origin, map.textures[block.front_id]);
-                }
-                if (block.left_id >= 0) {
-                    create_triangles_for_texture(origin, map.textures[block.left_id]);
-                }
-                if (block.back_id >= 0) {
-                    create_triangles_for_texture(origin, map.textures[block.back_id]);
-                }
-                if (block.right_id >= 0) {
-                    create_triangles_for_texture(origin, map.textures[block.right_id]);
-                }
-                if (block.top_id >= 0) {
-                    create_triangles_for_texture(origin, map.textures[block.top_id]);
-                }
-                if (block.bottom_id >= 0) {
-                    create_triangles_for_texture(origin, map.textures[block.bottom_id]);
+    for (int col = 0; col < map.number_of_columns; col++) {
+        for (int row = 0; row < map.number_of_rows; row++) {
+
+            const auto &tile = map.terrain[col][row];
+
+            vec3 tile_origin{col * map.cell_size, 0, row * map.cell_size};
+
+            auto feed_to_renderer = [&](const vec3 &position, const mesh &mesh) {
+                for (const auto &triangle : mesh.faces) {
+                    auto &[positions, UVs] = map_triangles[triangle.texture_index];
+                    for (const auto &index : triangle.vertex_indices) {
+                        positions.push_back(mesh.vertices[index] + position);
+                    }
+                    UVs.insert(UVs.end(), triangle.UVs.begin(), triangle.UVs.end());
                 }
             };
-            if (tile.top_id >= 0) {
-                create_triangles_for_block(tile.point_a, map.blocks[tile.top_id]);
+
+            if (tile.top_mesh_index >= 0) {
+                tile_origin.y = tile.ceil_level;
+                feed_to_renderer(tile_origin, map.meshes[tile.top_mesh_index]);
             }
-            if (tile.middle_id >= 0) {
-                create_triangles_for_block(tile.point_a, map.blocks[tile.middle_id]);
+            if (tile.middle_mesh_index >= 0) {
+                tile_origin.y = tile.floor_level;
+                feed_to_renderer(tile_origin, map.meshes[tile.middle_mesh_index]);
             }
-            if (tile.bottom_id >= 0) {
-                create_triangles_for_block(tile.point_a, map.blocks[tile.bottom_id]);
+            if (tile.bottom_mesh_index >= 0) {
+                tile_origin.y = tile.floor_level;
+                feed_to_renderer(tile_origin, map.meshes[tile.bottom_mesh_index]);
             }
         }
     }
@@ -90,12 +77,6 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
     // render projectiles
     for (const auto &projectile : map.projectiles) {
         if (projectile.phase >= 2) {
-            continue;
-        }
-        if (projectile.phase == 0 && projectile.base.move_id < 0) {
-            continue;
-        }
-        if (projectile.phase == 1 && projectile.base.end_id < 0) {
             continue;
         }
         vec3 up_ray = up - direction * (dot(direction, up) / dot(direction, direction));
@@ -109,8 +90,7 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
                    (projectile.phase == 0 ? projectile.base.move_size : projectile.base.end_size);
 
         auto &[positions, UVs] =
-            map_triangles[surface_ids[projectile.phase == 0 ? projectile.base.move_id
-                                                            : projectile.base.end_id]];
+            map_triangles[projectile.phase == 0 ? projectile.base.move_id : projectile.base.end_id];
         positions.push_back(projectile.position + left_ray - up_ray);
         positions.push_back(projectile.position + left_ray + up_ray);
         positions.push_back(projectile.position - left_ray - up_ray);
@@ -138,7 +118,7 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
         GLuint MVP_loc = glGetUniformLocation(shader_program, "MVP");
 
         static bool debug = true;
-        for (const auto &[surface_id, triangles] : map_triangles) {
+        for (const auto &[frame_id, triangles] : map_triangles) {
 
             // i hate debug lol
             if (!debug) {
@@ -176,7 +156,7 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
 
             // bind texture in GL_TEXTURE0
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, surface_id);
+            glBindTexture(GL_TEXTURE_2D, surface_ids[frame_id]);
             glUniform1i(texture_loc, 0);
 
             // bind MVP
@@ -230,7 +210,19 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
         auto position = monster.current_movement.position;
         position.y += monster.hitbox_height * 0.5;
 
-        auto &[positions, UVs] = map_triangles[surface_ids[monster.front_id]];
+        int frame_id = -1;
+        if (monster.animation_phase == 0 &&
+            monster.moving.current_phase < static_cast<int>(monster.moving.frame_id.size())) {
+            frame_id = monster.moving.frame_id[monster.moving.current_phase];
+        }
+        if (monster.animation_phase == 1 &&
+            monster.shooting.current_phase < static_cast<int>(monster.shooting.frame_id.size())) {
+            frame_id = monster.shooting.frame_id[monster.shooting.current_phase];
+        }
+        if (frame_id == -1) {
+            continue;
+        }
+        auto &[positions, UVs] = map_triangles[frame_id];
         positions.push_back(position + left_ray - up_ray);
         positions.push_back(position + left_ray + up_ray);
         positions.push_back(position - left_ray - up_ray);

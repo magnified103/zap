@@ -112,7 +112,13 @@ struct monster_ai_pathfinding : monster_ai {
             }
 
             // party time
-            monster.current_inventory.trigger_selection(map, monster, player);
+            monster.current_inventory.update_lock();
+            if (!monster.current_inventory.locked) {
+                monster.current_inventory.trigger_selection(map, monster, player);
+                monster.animation_phase = 1;
+            } else {
+                monster.animation_phase = 0;
+            }
         }
 
         return suggestions;

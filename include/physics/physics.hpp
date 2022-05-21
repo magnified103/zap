@@ -148,6 +148,7 @@ struct physics {
             if (!map.collide_floor(movement.position)) {
                 monster.current_movement = movement;
             }
+            monster.update_animation(delta_time);
         }
     }
 

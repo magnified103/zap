@@ -2,24 +2,36 @@
 #include <memory>
 #include <string>
 
+#include "cli/CLI11.hpp"
 #include "core/game.hpp"
 #include "core/map_editor.hpp"
 #include "opengl/loader.hpp"
 
 int main(int argc, char *argv[]) {
-    if (argc == 3 && std::string(argv[1]) == "edit") {
-        map_editor(std::string(argv[2]));
+    CLI::App app;
+
+    bool edit_mode{false};
+    app.add_flag("--edit,-e", edit_mode, "Activate versatile edit mode");
+
+    std::string map_path{"map.json"};
+    app.add_option("--map,-m", map_path, "Specify the map to be loaded");
+
+    CLI11_PARSE(app, argc, argv);
+
+    if (edit_mode) {
+        map_editor(map_path);
         return 0;
     }
+
     sdl::sdl sdl;
     sdl::img img;
     gles_loader loader;
 
     // declare game
-    std::unique_ptr<basic_game> zap = std::make_unique<game>();
+    std::unique_ptr<basic_game> zap = std::make_unique<game>(map_path);
 
     // run game
-    return zap->run(argc, argv);
+    return zap->run();
 
     // map_grid grid(std::ifstream("map.txt"));
 

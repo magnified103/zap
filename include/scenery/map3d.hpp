@@ -11,7 +11,8 @@
 #include "entity/projectile.hpp"
 #include "opengl/gl.hpp"
 #include "scenery/block.hpp"
-#include "scenery/texture.hpp"
+// #include "scenery/texture.hpp"
+#include "scenery/mesh.hpp"
 #include "scenery/tile.hpp"
 
 struct map3d {
@@ -19,11 +20,12 @@ struct map3d {
     int number_of_rows;
     float cell_size;
     std::vector<std::vector<tile>> terrain;
-    std::vector<block> blocks;
+    // std::vector<block> blocks;
     std::vector<monster> monsters;
     std::vector<projectile_type> projectile_types;
-    std::vector<texture> textures;
-    std::vector<std::string> surfaces;
+    // std::vector<texture> textures;
+    std::vector<mesh> meshes;
+    std::vector<std::string> texture_paths;
 
     // runtime specific
     std::vector<projectile> projectiles;
@@ -32,8 +34,8 @@ struct map3d {
     template <class Archive>
     void serialize(Archive &archive) {
         archive(CEREAL_NVP(number_of_columns), CEREAL_NVP(number_of_rows), CEREAL_NVP(cell_size),
-                CEREAL_NVP(terrain), CEREAL_NVP(blocks), CEREAL_NVP(monsters),
-                CEREAL_NVP(projectile_types), CEREAL_NVP(textures), CEREAL_NVP(surfaces));
+                CEREAL_NVP(terrain), CEREAL_NVP(monsters), CEREAL_NVP(projectile_types),
+                CEREAL_NVP(meshes), CEREAL_NVP(texture_paths));
     }
     bool collide_floor(const vec3 &position, float margin = 0) {
         int column_index = std::floor(position.x / cell_size);

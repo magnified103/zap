@@ -24,7 +24,7 @@ void GL_APIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum s
     }
 }
 
-void game::initialize(int argc, char *argv[]) {
+game::game(const std::string &map_path) {
 
     // specify window sizes
     window_width = 800;
@@ -41,12 +41,7 @@ void game::initialize(int argc, char *argv[]) {
     main_map = std::make_unique<map3d>();
     main_player = std::make_unique<player3d>();
     physics_engine = std::make_unique<physics>();
-    if (argc >= 3 && std::string(argv[1]) == "load") {
-        load_map_and_textures(std::string(argv[2]), *main_map, *main_player, *physics_engine,
-                              surface_ids);
-    } else {
-        load_map_and_textures("map.json", *main_map, *main_player, *physics_engine, surface_ids);
-    }
+    load_map_and_textures(map_path, *main_map, *main_player, *physics_engine, surface_ids);
 
     // main_map->number_of_columns = 2;
     // main_map->number_of_rows = 2;

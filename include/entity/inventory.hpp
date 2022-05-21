@@ -21,6 +21,8 @@ struct inventory_item {
 
     virtual void update_state(float delta_time) { remaining_reload_time -= delta_time; }
 
+    virtual bool usable() { return remaining_reload_time <= 0; }
+
     // cereal specific
     template <class Archive>
     void serialize(Archive &archive) {
@@ -56,6 +58,16 @@ struct inventory {
     void update_state(float delta_time) {
         for (auto &item : items) {
             item->update_state(delta_time);
+        }
+    }
+
+    void update_lock() {
+        locked = false;
+        for (auto &item : items) {
+            if (!item->usable()) {
+                locked = true;
+                break;
+            }
         }
     }
 };

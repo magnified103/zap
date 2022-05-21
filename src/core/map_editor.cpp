@@ -58,10 +58,6 @@ struct repl {
                         for (int i = x1; i <= x2; i++) {
                             for (int j = z1; j <= z2; j++) {
                                 map.terrain[i][j] = cur;
-                                map.terrain[i][j].point_a =
-                                    vec3{i * map.cell_size, 0, j * map.cell_size};
-                                map.terrain[i][j].point_b =
-                                    map.terrain[i][j].point_a + cur.point_b - cur.point_a;
                             }
                         }
                         return 1;
@@ -177,6 +173,25 @@ struct repl {
         return false;
     }
 
+    template <class T, std::size_t N>
+    bool eval(std::array<T, N> &arr, const std::string &path,
+              const std::vector<std::string> &argument_list) {
+        if (path.empty()) {
+            return false;
+        }
+        if (path[0] != '[') {
+            return false;
+        }
+        auto it = get_identifier(path);
+        std::istringstream ss(std::string(std::next(path.begin()), it));
+        if (std::size_t pos; ss >> pos) {
+            if (pos < arr.size() && it != path.cend() && *it == ']') {
+                return eval(arr[pos], std::string(std::next(it), path.cend()), argument_list);
+            }
+        }
+        return false;
+    }
+
     template <class T>
     bool eval(std::unique_ptr<T> &ptr, const std::string &path,
               const std::vector<std::string> &argument_list) {
@@ -258,21 +273,19 @@ struct repl {
         }
         EVAL_CLASS_MEMBER(map, cell_size);
         EVAL_CLASS_MEMBER(map, terrain);
-        EVAL_CLASS_MEMBER(map, blocks);
+        // EVAL_CLASS_MEMBER(map, blocks);
         EVAL_CLASS_MEMBER(map, monsters);
         EVAL_CLASS_MEMBER(map, projectile_types);
-        EVAL_CLASS_MEMBER(map, textures);
-        EVAL_CLASS_MEMBER(map, surfaces);
+        EVAL_CLASS_MEMBER(map, meshes);
+        EVAL_CLASS_MEMBER(map, texture_paths);
         return false;
     }
 
     bool eval(tile &tile, const std::string &path, const std::vector<std::string> &argument_list) {
         EVAL_MEMBER_SYNTAX();
-        EVAL_CLASS_MEMBER(tile, top_id);
-        EVAL_CLASS_MEMBER(tile, middle_id);
-        EVAL_CLASS_MEMBER(tile, bottom_id);
-        EVAL_CLASS_MEMBER(tile, point_a);
-        EVAL_CLASS_MEMBER(tile, point_b);
+        EVAL_CLASS_MEMBER(tile, top_mesh_index);
+        EVAL_CLASS_MEMBER(tile, middle_mesh_index);
+        EVAL_CLASS_MEMBER(tile, bottom_mesh_index);
         EVAL_CLASS_MEMBER(tile, floor_level);
         EVAL_CLASS_MEMBER(tile, ceil_level);
         EVAL_CLASS_MEMBER(tile, lightning);
@@ -356,7 +369,7 @@ struct repl {
               const std::vector<std::string> &argument_list) {
         EVAL_MEMBER_SYNTAX();
         EVAL_BASE_CLASS(monster, entity);
-        EVAL_CLASS_MEMBER(monster, front_id);
+        // EVAL_CLASS_MEMBER(monster, front_id);
         return false;
     }
 
@@ -385,15 +398,30 @@ struct repl {
         return false;
     }
 
-    bool eval(texture &texture, const std::string &path,
-              const std::vector<std::string> &argument_list) {
+    // bool eval(texture &texture, const std::string &path,
+    //           const std::vector<std::string> &argument_list) {
+    //     EVAL_MEMBER_SYNTAX();
+    //     EVAL_CLASS_MEMBER(texture, surface_id);
+    //     EVAL_CLASS_MEMBER(texture, positions);
+    //     EVAL_CLASS_MEMBER(texture, UVs);
+    //     return false;
+    // }
+
+    bool eval(mesh &mesh, const std::string &path, const std::vector<std::string> &argument_list) {
         EVAL_MEMBER_SYNTAX();
-        EVAL_CLASS_MEMBER(texture, surface_id);
-        EVAL_CLASS_MEMBER(texture, positions);
-        EVAL_CLASS_MEMBER(texture, UVs);
+        EVAL_CLASS_MEMBER(mesh, vertices);
+        EVAL_CLASS_MEMBER(mesh, faces);
         return false;
     }
 
+    bool eval(triangle &triangle, const std::string &path,
+              const std::vector<std::string> &argument_list) {
+        EVAL_MEMBER_SYNTAX();
+        EVAL_CLASS_MEMBER(triangle, vertex_indices);
+        EVAL_CLASS_MEMBER(triangle, UVs);
+        EVAL_CLASS_MEMBER(triangle, texture_index);
+        return false;
+    }
 #undef EVAL_CLASS_MEMBER
 #undef EVAL_CLASS_MEMBER_NO_RETURN
 #undef EVAL_BASE_CLASS

@@ -17,6 +17,8 @@
 
 class game final : public basic_game {
 public:
+    game(const std::string &map_path);
+
 protected:
     int window_width;
     int window_height;
@@ -42,7 +44,6 @@ protected:
 
     bool mouse_is_trapped;
 
-    void initialize(int argc, char *argv[]) override;
     void game_logic() override;
     int cleanup() override;
     // void on_quit(const SDL_QuitEvent &event) override;

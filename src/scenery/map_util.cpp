@@ -6,6 +6,7 @@
 
 #include "cereal/archives/json.hpp"
 #include "cereal/cereal.hpp"
+#include "cereal/types/array.hpp"
 #include "cereal/types/string.hpp"
 #include "cereal/types/vector.hpp"
 #include "entity/player3d.hpp"
@@ -45,7 +46,7 @@ void save_map(const std::string &path, const map3d &map, const player3d &player,
 void load_textures(const std::string &path, const map3d &map, std::vector<GLuint> &surface_ids) {
     surface_ids.clear();
 
-    for (const auto &surface_path : map.surfaces) {
+    for (const auto &surface_path : map.texture_paths) {
         // get surface's absolute path
         std::string absolute_path(std::filesystem::path(path).parent_path() /
                                   std::filesystem::path(surface_path));
