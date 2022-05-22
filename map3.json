@@ -1,0 +1,327 @@
+{
+    "map": {
+        "number_of_columns": 2,
+        "number_of_rows": 2,
+        "cell_size": 5.0,
+        "terrain": [
+            [
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": 1,
+                    "bottom_mesh_index": -1,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                }
+            ],
+            [
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                }
+            ]
+        ],
+        "monsters": [
+            {
+                "entity": {
+                    "walk_speed": 0.01,
+                    "run_speed": 0.0,
+                    "jump_speed": 10.0,
+                    "current_movement": {
+                        "current_vertical_speed": 0.0,
+                        "position": {
+                            "x": 5.0,
+                            "y": 5.0,
+                            "z": 5.0
+                        }
+                    },
+                    "current_inventory": {
+                        "items": [
+                            {
+                                "polymorphic_id": 2147483649,
+                                "polymorphic_name": "ranged_weapon",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "inventory_item": {
+                                            "reload_time": 1.0,
+                                            "remaining_reload_time": 0.0
+                                        },
+                                        "projectile_type": 0,
+                                        "activated": true,
+                                        "number_of_rounds": 100,
+                                        "max_number_of_rounds": 100
+                                    }
+                                }
+                            }
+                        ],
+                        "selection": 0,
+                        "locked": false
+                    },
+                    "hand_position": {
+                        "x": 5.0,
+                        "y": 5.0,
+                        "z": 0.0
+                    },
+                    "hitbox_height": 5.599999904632568,
+                    "hitbox_radius": 2.049999952316284,
+                    "hitpoint": 100000
+                },
+                "moving": {
+                    "frame_id": [
+                        2, 3, 4, 5
+                    ],
+                    "frame_time": 0.15,
+                    "remaining_frame_time": 0,
+                    "initial_phase": 0
+                },
+                "shooting": {
+                    "frame_id": [],
+                    "frame_time": 0,
+                    "remaining_frame_time": 0,
+                    "initial_phase": 0
+                },
+                "animation_phase": 0
+            }
+        ],
+        "projectile_types": [
+            {
+                "speed": 10.0,
+                "move_id": 1,
+                "move_size": 0.10000000149011612,
+                "end_id": 1,
+                "end_size": 0.10000000149011612,
+                "end_time": 5.0,
+                "blast_radius": 2.0,
+                "damage": 20
+            }
+        ],
+        "meshes": [
+            {
+                "vertices": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 0.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 10.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 10.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 10.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 10.0,
+                        "z": 5.0
+                    }
+                ],
+                "faces": [
+                    {
+                        "vertex_indices": [
+                            1, 3, 0
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            }
+                        ],
+                        "texture_index": 0
+                    },
+                    {
+                        "vertex_indices": [
+                            3, 0, 2
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        ],
+                        "texture_index": 0
+                    },
+                    {
+                        "vertex_indices": [
+                            1, 5, 0
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        ],
+                        "texture_index": 6
+                    }
+                    ,
+                    {
+                        "vertex_indices": [
+                            5, 0, 4
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        ],
+                        "texture_index": 6
+                    }
+                ]
+            }
+        ],
+        "texture_paths": [
+            "./res/d2_flat1.png",
+            "./res/plain-white.png",
+            "./res/playa1.png",
+            "./res/playb1.png",
+            "./res/playc1.png",
+            "./res/playd1.png",
+            "./res/d2_wall0.png"
+        ]
+    },
+    "player": {
+        "entity": {
+            "walk_speed": 0.5,
+            "run_speed": 0.0,
+            "jump_speed": 10.0,
+            "current_movement": {
+                "current_vertical_speed": 0.0,
+                "position": {
+                    "x": 5.0,
+                    "y": 5.0,
+                    "z": 5.0
+                }
+            },
+            "current_inventory": {
+                "items": [
+                    {
+                        "polymorphic_id": 1,
+                        "ptr_wrapper": {
+                            "valid": 1,
+                            "data": {
+                                "inventory_item": {
+                                    "reload_time": 1.0,
+                                    "remaining_reload_time": 0.0
+                                },
+                                "projectile_type": 0,
+                                "activated": true,
+                                "number_of_rounds": 100,
+                                "max_number_of_rounds": 100
+                            }
+                        }
+                    }
+                ],
+                "selection": 0,
+                "locked": false
+            },
+            "hand_position": {
+                "x": 0.0,
+                "y": 5.0,
+                "z": 0.0
+            },
+            "hitbox_height": 5.0,
+            "hitbox_radius": 0.5,
+            "hitpoint": 100
+        },
+        "camera_position": {
+            "x": 0.0,
+            "y": 5.0,
+            "z": 0.0
+        },
+        "camera": {
+            "fov": 1.0471975803375245,
+            "near": 0.5,
+            "far": 1000.0,
+            "vertical_angle": 0.0,
+            "horizontal_angle": 1.5707963705062867
+        }
+    },
+    "engine": {
+        "ai": {
+            "polymorphic_id": 2147483650,
+            "polymorphic_name": "monster_ai_pathfinding",
+            "ptr_wrapper": {
+                "valid": 1,
+                "data": {
+                    "monster_ai": {}
+                }
+            }
+        }
+    }
+}
