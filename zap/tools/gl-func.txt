@@ -1,0 +1,51 @@
+// shader programs
+glCreateProgram
+glUseProgram
+glCreateShader
+glShaderSource
+glCompileShader
+glGetShaderiv
+glGetShaderInfoLog
+glAttachShader
+glLinkProgram
+glGetProgramiv
+glGetProgramInfoLog
+glDetachShader
+glDeleteShader
+glDeleteProgram
+
+// utilities
+glEnable
+glDepthFunc
+glGetError
+glDebugMessageCallbackKHR
+glBlendFunc
+glGetString
+
+// program input capabilities
+glGetUniformLocation
+glUniform1i
+glUniformMatrix4fv
+
+// VBOs
+glEnableVertexAttribArray
+glDisableVertexAttribArray
+glGenBuffers
+glBindBuffer
+glBufferData
+glVertexAttribPointer
+glDeleteBuffers
+
+// drawing
+glClear
+glClearColor
+glDrawArrays
+
+// load textures
+glActiveTexture
+glGenTextures
+glDeleteTextures
+glBindTexture
+glTexImage2D
+glTexParameteri
+glGenerateMipmap

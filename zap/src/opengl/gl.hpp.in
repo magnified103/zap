@@ -1,0 +1,11 @@
+#ifndef OPENGL_GL_HPP
+#define OPENGL_GL_HPP
+
+#define GL_GLES_PROTOTYPES 0
+
+#include <SDL_opengles2.h>
+
+// declarations here
+@GL_FUNC_DECLARATIONS@
+
+#endif // OPENGL_GL_HPP

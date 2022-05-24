@@ -1,0 +1,31 @@
+#include "opengl/context.hpp"
+#include "sdl2/handlers/logging.hpp"
+#include "opengl/gl.hpp"
+
+context_loader::context_loader(SDL_Window *window) : gl_context{SDL_GL_CreateContext(window)} {
+    if (!gl_context) {
+        throw sdl::sdl_exception();
+    }
+#define SDL_GL_InitializeFunction(name)                                                            \
+    if (!(name = reinterpret_cast<decltype(name)>(SDL_GL_GetProcAddress(#name)))) {                \
+        throw sdl::sdl_exception();                                                                \
+    }
+
+// initializations here
+@GL_FUNC_INITIALIZATIONS@
+
+    const GLubyte *str{nullptr};
+    str = glGetString(GL_VENDOR);
+    sdl::log_info("GL vendor: %s", str ? reinterpret_cast<const char *>(str) : "null");
+
+    str = glGetString(GL_RENDERER);
+    sdl::log_info("GL renderer: %s", str ? reinterpret_cast<const char *>(str) : "null");
+
+    str = glGetString(GL_VERSION);
+    sdl::log_info("GL version: %s", str ? reinterpret_cast<const char *>(str) : "null");
+
+    str = glGetString(GL_SHADING_LANGUAGE_VERSION);
+    sdl::log_info("GL shading lang version: %s",
+                  str ? reinterpret_cast<const char *>(str) : "null");
+#undef SDL_GL_InitializeFunction
+}

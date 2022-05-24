@@ -71,4 +71,5 @@
         "csignal": "cpp",
         "cfenv": "cpp"
     },
+    "cmake.sourceDirectory": "${workspaceFolder}/zap",
 }

@@ -6,37 +6,17 @@
         "terrain": [
             [
                 {
-                    "top_id": -1,
-                    "middle_id": -1,
-                    "bottom_id": 0,
-                    "point_a": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "point_b": {
-                        "x": 5.0,
-                        "y": 20.0,
-                        "z": 5.0
-                    },
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": 0,
+                    "bottom_mesh_index": -1,
                     "floor_level": 5.0,
                     "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
-                    "top_id": -1,
-                    "middle_id": -1,
-                    "bottom_id": 0,
-                    "point_a": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 5.0
-                    },
-                    "point_b": {
-                        "x": 5.0,
-                        "y": 20.0,
-                        "z": 10.0
-                    },
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
                     "ceil_level": 20.0,
                     "lightning": 1.0
@@ -44,59 +24,27 @@
             ],
             [
                 {
-                    "top_id": -1,
-                    "middle_id": -1,
-                    "bottom_id": 0,
-                    "point_a": {
-                        "x": 5.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "point_b": {
-                        "x": 10.0,
-                        "y": 20.0,
-                        "z": 5.0
-                    },
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
                     "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
-                    "top_id": -1,
-                    "middle_id": -1,
-                    "bottom_id": 0,
-                    "point_a": {
-                        "x": 5.0,
-                        "y": 0.0,
-                        "z": 5.0
-                    },
-                    "point_b": {
-                        "x": 10.0,
-                        "y": 20.0,
-                        "z": 10.0
-                    },
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
                     "ceil_level": 20.0,
                     "lightning": 1.0
                 }
             ]
         ],
-        "blocks": [
-            {
-                "front_id": -1,
-                "left_id": -1,
-                "back_id": -1,
-                "right_id": -1,
-                "top_id": 0,
-                "bottom_id": -1,
-                "height_top": 10.0,
-                "height_bottom": 0.0
-            }
-        ],
         "monsters": [
             {
                 "entity": {
-                    "walk_speed": 0.05,
+                    "walk_speed": 0.01,
                     "run_speed": 0.0,
                     "jump_speed": 10.0,
                     "current_movement": {
@@ -108,15 +56,64 @@
                         }
                     },
                     "current_inventory": {
-                        "items": [],
+                        "items": [
+                            {
+                                "polymorphic_id": 2147483649,
+                                "polymorphic_name": "ranged_weapon",
+                                "ptr_wrapper": {
+                                    "valid": 1,
+                                    "data": {
+                                        "inventory_item": {
+                                            "reload": {
+                                                "delay": 1.0,
+                                                "remaining_delay": 0.0
+                                            }
+                                        },
+                                        "projectile_type": 0,
+                                        "activated": true,
+                                        "number_of_rounds": 100,
+                                        "max_number_of_rounds": 100
+                                    }
+                                }
+                            }
+                        ],
                         "selection": 0,
                         "locked": false
                     },
+                    "hand_position": {
+                        "x": 5.0,
+                        "y": 5.0,
+                        "z": 0.0
+                    },
                     "hitbox_height": 5.599999904632568,
                     "hitbox_radius": 2.049999952316284,
-                    "hitpoint": 100
+                    "hitpoint": 100000
                 },
-                "front_id": 2
+                "moving": {
+                    "frame_id": [
+                        2, 3, 4, 5
+                    ],
+                    "frame": {
+                        "delay": 0.15,
+                        "remaining_delay": 0.0
+                    },
+                    "initial_phase": 0
+                },
+                "shooting": {
+                    "frame_id": [
+                        8
+                    ],
+                    "frame": {
+                        "delay": 0.3,
+                        "remaining_delay": 0.0
+                    },
+                    "initial_phase": 0
+                },
+                "animation_phase": 0,
+                "shooting_time": {
+                    "delay": 0.6,
+                    "remaining_delay": 0.0
+                }
             }
         ],
         "projectile_types": [
@@ -127,77 +124,149 @@
                 "end_id": 1,
                 "end_size": 0.10000000149011612,
                 "end_time": 5.0,
-                "blast_radius": 5.0,
+                "blast_radius": 2.0,
                 "damage": 20
             }
         ],
-        "textures": [
+        "meshes": [
             {
-                "surface_id": 0,
-                "positions": [
+                "vertices": [
                     {
-                        "x": 5.0,
-                        "y": 5.0,
+                        "x": 0.0,
+                        "y": 0.0,
                         "z": 0.0
                     },
                     {
                         "x": 5.0,
-                        "y": 5.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 0.0,
                         "z": 5.0
                     },
                     {
                         "x": 0.0,
-                        "y": 5.0,
+                        "y": 10.0,
                         "z": 0.0
                     },
                     {
                         "x": 5.0,
-                        "y": 5.0,
-                        "z": 5.0
-                    },
-                    {
-                        "x": 0.0,
-                        "y": 5.0,
+                        "y": 10.0,
                         "z": 0.0
                     },
                     {
                         "x": 0.0,
-                        "y": 5.0,
+                        "y": 10.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 10.0,
                         "z": 5.0
                     }
                 ],
-                "UVs": [
+                "faces": [
                     {
-                        "x": 0.0,
-                        "y": 0.0
+                        "vertex_indices": [
+                            1, 3, 0
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            }
+                        ],
+                        "texture_index": 0
                     },
                     {
-                        "x": 0.0,
-                        "y": 1.0
+                        "vertex_indices": [
+                            3, 0, 2
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        ],
+                        "texture_index": 0
                     },
                     {
-                        "x": 1.0,
-                        "y": 0.0
-                    },
+                        "vertex_indices": [
+                            1, 5, 0
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            }
+                        ],
+                        "texture_index": 6
+                    }
+                    ,
                     {
-                        "x": 0.0,
-                        "y": 1.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 0.0
-                    },
-                    {
-                        "x": 1.0,
-                        "y": 1.0
+                        "vertex_indices": [
+                            5, 0, 4
+                        ],
+                        "UVs": [
+                            {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        ],
+                        "texture_index": 6
                     }
                 ]
             }
         ],
-        "surfaces": [
+        "texture_paths": [
             "./res/d2_flat1.png",
             "./res/plain-white.png",
-            "./res/playa1.png"
+            "./res/playa1.png",
+            "./res/playb1.png",
+            "./res/playc1.png",
+            "./res/playd1.png",
+            "./res/d2_wall0.png",
+            "./res/playe1.png",
+            "./res/playf1.png"
         ]
     },
     "player": {
@@ -216,14 +285,15 @@
             "current_inventory": {
                 "items": [
                     {
-                        "polymorphic_id": 2147483649,
-                        "polymorphic_name": "ranged_weapon",
+                        "polymorphic_id": 1,
                         "ptr_wrapper": {
                             "valid": 1,
                             "data": {
                                 "inventory_item": {
-                                    "reload_time": 1.0,
-                                    "remaining_reload_time": 0.0
+                                    "reload": {
+                                        "delay": 1.0,
+                                        "remaining_delay": 0.0
+                                    }
                                 },
                                 "projectile_type": 0,
                                 "activated": true,
@@ -236,14 +306,14 @@
                 "selection": 0,
                 "locked": false
             },
+            "hand_position": {
+                "x": 0.0,
+                "y": 5.0,
+                "z": 0.0
+            },
             "hitbox_height": 5.0,
             "hitbox_radius": 0.5,
             "hitpoint": 100
-        },
-        "hand_position": {
-            "x": 0.0,
-            "y": 5.0,
-            "z": 0.0
         },
         "camera_position": {
             "x": 0.0,

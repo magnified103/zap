@@ -1,0 +1,4 @@
+#include "opengl/gl.hpp"
+
+// definitions here
+@GL_FUNC_DEFINITIONS@

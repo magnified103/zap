@@ -1,15 +1,12 @@
-An general block consists of six sides: 0, 1, 2, 3, 4, 5
-    2
-   ---
-1 | 4 | 3
-   ---
-    0
-(front: 0)
-(left: 1)
-(back: 2)
-(right: 3)
-(top: 4)
-(bottom: 5)
+
+   7--------6
+  /|       /|
+ / |      / |
+5--------4  |
+|  3-----|--2
+| /      | /
+|/       |/
+1--------0
 
 A single tile consists of three parts: top, middle, bottom.
 
