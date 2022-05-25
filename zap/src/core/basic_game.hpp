@@ -11,6 +11,7 @@ public:
         dispatcher.bind<SDL_KeyboardEvent>().to<&basic_game::on_keyboard_event>(this);
         dispatcher.bind<SDL_MouseButtonEvent>().to<&basic_game::on_mouse_button_event>(this);
         dispatcher.bind<SDL_MouseMotionEvent>().to<&basic_game::on_mouse_motion_event>(this);
+        dispatcher.bind<SDL_MouseWheelEvent>().to<&basic_game::on_mouse_wheel_event>(this);
         while (game_is_running) {
             dispatcher.poll();
             game_logic();
@@ -21,7 +22,7 @@ public:
 
 protected:
     sdl::event_dispatcher<SDL_QuitEvent, SDL_WindowEvent, SDL_KeyboardEvent, SDL_MouseButtonEvent,
-                          SDL_MouseMotionEvent>
+                          SDL_MouseMotionEvent, SDL_MouseWheelEvent>
         dispatcher;
     bool game_is_running{true};
 

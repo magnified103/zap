@@ -19,6 +19,8 @@ struct melee_weapon : inventory_item {
 
     void use(map3d &map, player3d &player) override;
 
+    void use(map3d &map, monster &monster, player3d &player) override;
+
     // cereal specific
     template <class Archive>
     void serialize(Archive &archive) {

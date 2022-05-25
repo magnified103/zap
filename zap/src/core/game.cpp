@@ -31,9 +31,8 @@ game::game(const std::string &map_path) {
     window_height = 640;
 
     // create window
-    main_window = std::make_unique<sdl::window>(
-        "zap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+    main_window = std::make_unique<sdl::window>("zap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width,
+                                                window_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
     context_loader context(main_window->get());
 
@@ -241,8 +240,7 @@ void game::game_logic() {
             jump = true;
         }
     }
-    physics_engine.trigger_player_keyboard(main_map, main_player, forward, backward, left, right,
-                                           jump, false);
+    physics_engine.trigger_player_keyboard(main_map, main_player, forward, backward, left, right, jump, false);
     // int type = 0;
     // if ((forward || backward || left || right)) {
     //     type = 1;
@@ -367,10 +365,9 @@ void game::game_logic() {
     if (main_player.dead) {
         display.render_end_screen(surface_ids, window_width, window_height, shader_program_2d);
     } else {
-        display.render_scene(main_player.hitpoint,
-                             main_player.current_inventory.get_selected_count(),
-                             main_player.current_inventory, surface_ids, window_width,
-                             window_height, shader_program_2d);
+        display.render_scene(main_player.hitpoint, main_player.current_inventory.get_selected_count(),
+                             main_player.current_inventory, surface_ids, window_width, window_height,
+                             shader_program_2d);
     }
     // main_renderer->present();
     SDL_GL_SwapWindow(main_window->get());

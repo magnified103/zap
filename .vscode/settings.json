@@ -1,5 +1,5 @@
 {
-    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, ColumnLimit: 100, BreakBeforeBraces: Attach, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, AccessModifierOffset: -4, NamespaceIndentation: None, FixNamespaceComments: false, AlwaysBreakTemplateDeclarations: Yes }",
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, ColumnLimit: 120, BreakBeforeBraces: Attach, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, AccessModifierOffset: -4, NamespaceIndentation: None, FixNamespaceComments: false, AlwaysBreakTemplateDeclarations: Yes }",
     "files.associations": {
         "type_traits": "cpp",
         "new": "cpp",

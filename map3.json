@@ -15692,166 +15692,6 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
                     "top_mesh_index": -1,
                     "middle_mesh_index": -1,
                     "bottom_mesh_index": 0,
@@ -16009,248 +15849,6 @@
                     "bottom_mesh_index": 0,
                     "floor_level": 5.0,
                     "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                }
-            ],
-            [
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": 1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
-                    "floor_level": 5.0,
-                    "ceil_level": 5.0,
                     "lightning": 1.0
                 },
                 {
@@ -16648,11 +16246,11 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
+                    "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
-                    "ceil_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -17050,11 +16648,11 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
+                    "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
-                    "ceil_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -17452,11 +17050,11 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
+                    "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
-                    "ceil_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -17854,11 +17452,11 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
+                    "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
-                    "ceil_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -18256,11 +17854,11 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
+                    "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
-                    "ceil_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -18658,11 +18256,11 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
+                    "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
-                    "ceil_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -19060,11 +18658,11 @@
                     "lightning": 1.0
                 },
                 {
-                    "top_mesh_index": 1,
+                    "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": -1,
+                    "bottom_mesh_index": 0,
                     "floor_level": 5.0,
-                    "ceil_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -19462,11 +19060,413 @@
                     "lightning": 1.0
                 },
                 {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
                     "top_mesh_index": 1,
                     "middle_mesh_index": -1,
                     "bottom_mesh_index": -1,
                     "floor_level": 5.0,
                     "ceil_level": 5.0,
+                    "lightning": 1.0
+                }
+            ],
+            [
+                {
+                    "top_mesh_index": 1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": -1,
+                    "floor_level": 5.0,
+                    "ceil_level": 5.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
                     "lightning": 1.0
                 },
                 {
@@ -20423,85 +20423,6 @@
             {
                 "entity": {
                     "g_force": -10.0,
-                    "walk_speed": 0.800000011920929,
-                    "run_speed": 0.0,
-                    "jump_speed": 20.0,
-                    "current_movement": {
-                        "current_vertical_speed": 0.0,
-                        "position": {
-                            "x": 100.0,
-                            "y": 5.0,
-                            "z": 100.0
-                        }
-                    },
-                    "current_inventory": {
-                        "items": [
-                            {
-                                "polymorphic_id": 2147483649,
-                                "polymorphic_name": "ranged_weapon",
-                                "ptr_wrapper": {
-                                    "valid": 1,
-                                    "data": {
-                                        "inventory_item": {
-                                            "reload": {
-                                                "delay": 1.0,
-                                                "remaining_delay": 0.0
-                                            },
-                                            "highlighted_texture_index": -1,
-                                            "regular_texture_index": -1
-                                        },
-                                        "projectile_type": 0,
-                                        "activated": true,
-                                        "number_of_rounds": 100000,
-                                        "max_number_of_rounds": 100000
-                                    }
-                                }
-                            }
-                        ],
-                        "selection": 0,
-                        "locked": false
-                    },
-                    "hand_position": {
-                        "x": 2.0,
-                        "y": 5.0,
-                        "z": 0.0
-                    },
-                    "hitbox_height": 5.5,
-                    "hitbox_radius": 2.0,
-                    "hitpoint": 100
-                },
-                "moving": {
-                    "frame_id": [
-                        2,
-                        3,
-                        4,
-                        5
-                    ],
-                    "frame": {
-                        "delay": 0.15000000596046449,
-                        "remaining_delay": 0.0
-                    },
-                    "initial_phase": 0
-                },
-                "shooting": {
-                    "frame_id": [
-                        8
-                    ],
-                    "frame": {
-                        "delay": 0.30000001192092898,
-                        "remaining_delay": 0.0
-                    },
-                    "initial_phase": 0
-                },
-                "animation_phase": 0,
-                "shooting_time": {
-                    "delay": 0.6000000238418579,
-                    "remaining_delay": 0.0
-                }
-            },
-            {
-                "entity": {
-                    "g_force": -10.0,
                     "walk_speed": 0.5,
                     "run_speed": 0.0,
                     "jump_speed": 20.0,
@@ -20516,7 +20437,8 @@
                     "current_inventory": {
                         "items": [
                             {
-                                "polymorphic_id": 1,
+                                "polymorphic_id": 2147483649,
+                                "polymorphic_name": "ranged_weapon",
                                 "ptr_wrapper": {
                                     "valid": 1,
                                     "data": {
@@ -20756,7 +20678,7 @@
             },
             "hitbox_height": 5.0,
             "hitbox_radius": 0.5,
-            "hitpoint": 100
+            "hitpoint": 100000
         },
         "camera_position": {
             "x": 0.0,

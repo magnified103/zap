@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/zap",
-            "args": ["--map", "map.json"],
+            "args": ["--map", "map3.json"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

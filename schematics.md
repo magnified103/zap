@@ -19,3 +19,14 @@ class physics: handle body movements of entities (based on map)
 class monster_ai: an abstract class which handles monster movements
 
 class monster_ai_shortest?: impl of monster_ai which support shortest route algos
+
+11111111111111111.....1
+1                     1
+1                     1
+1                     1
+1                     1
+1111                  1
+.                     .
+.                     .
+.                     .
+11111111111111111.....1

@@ -53,14 +53,15 @@ struct physics {
         //         player.current_movement = movement;
         //     }
         // }
-        if (map.collide_floor(movement.position)) {
+        const auto head = movement.position + vec3{0.0f, player.hitbox_height, 0.0f};
+        if (map.collide_floor(movement.position) || map.collide_ceil(head)) {
             movement = player.try_move_without_gravity(forward_state, backward_state, left_state,
                                                        right_state, type, delta_time);
         }
-        if (map.collide_floor(movement.position)) {
+        if (map.collide_floor(movement.position) || map.collide_ceil(head)) {
             movement = player.try_move(0, 0, 0, 0, 0, delta_time);
         }
-        if (!map.collide_floor(movement.position)) {
+        if (!map.collide_floor(movement.position) && !map.collide_ceil(head)) {
             player.current_movement = movement;
         }
         if (jump_state && !floating) {
@@ -77,7 +78,8 @@ struct physics {
             bool ended = false;
             bool newly_exploded = false;
             if (projectile.phase == 0) {
-                auto next_position = projectile.try_move(delta_time);
+                const auto next_position = projectile.try_move(delta_time);
+                const auto prev_position = projectile.position;
                 if (map.collide_floor(next_position) || map.collide_ceil(next_position)) {
                     sdl::log_info("Projectile collides with floor / ceil, phase = %d",
                                   projectile.phase);
@@ -85,13 +87,19 @@ struct physics {
                     ended = true;
                 } else {
                     for (const auto &monster : map.monsters) {
-                        if (monster.collide(next_position)) {
+                        if (monster.collide(prev_position, next_position)) {
                             sdl::log_info("Projectile collides with monster, phase = %d",
                                           projectile.phase);
                             newly_exploded = true;
                             ended = true;
                             break;
                         }
+                    }
+                    if (player.collide(prev_position, next_position)) {
+                        newly_exploded = true;
+                        ended = true;
+                        sdl::log_info("Projectile collides with player, phase = %d",
+                                      projectile.phase);
                     }
                 }
                 projectile.position = projectile.try_move(delta_time);

@@ -13,6 +13,7 @@
 #include <readline/readline.h>
 
 #include "core/map_editor.hpp"
+#include "entity/animation.hpp"
 #include "entity/player3d.hpp"
 #include "entity/weapon.hpp"
 #include "geometry/vector.hpp"
@@ -20,6 +21,7 @@
 #include "scenery/hud.hpp"
 #include "scenery/map3d.hpp"
 #include "scenery/map_util.hpp"
+#include "timer/delay.hpp"
 
 struct repl {
 
@@ -43,9 +45,9 @@ struct repl {
                     if (identifier == "map") {
                         return eval(map, std::string(it, path.cend()), argument_list);
                     }
-                    // if (identifier == "player") {
-                    //     return eval(player, std::string(it, path.cend()), argument_list);
-                    // }
+                    if (identifier == "player") {
+                        return eval(player, std::string(it, path.cend()), argument_list);
+                    }
                     // if (identifier == "physics") {
                     //     return eval(engine, std::string(it, path.cend()), argument_list);
                     // }
@@ -216,7 +218,7 @@ struct repl {
         }                                                                                          \
     }
         // write derived classes here
-        // EVAL_NEW_UPCAST(melee_weapon);
+        EVAL_NEW_UPCAST(melee_weapon);
         EVAL_NEW_UPCAST(ranged_weapon);
 #undef EVAL_NEW_UPCAST
         return false;
@@ -241,7 +243,7 @@ struct repl {
     }                                                                                              \
     auto it = get_identifier(path);                                                                \
     const std::string identifier(std::next(path.cbegin()), it);                                    \
-    // std::cerr << identifier << std::endl;
+    std::cerr << identifier << std::endl;
 
     template <int L>
     bool eval(vec<L> &vec, const std::string &path, const std::vector<std::string> &argument_list) {
@@ -355,6 +357,7 @@ struct repl {
     bool eval(entity &entity, const std::string &path,
               const std::vector<std::string> &argument_list) {
         EVAL_MEMBER_SYNTAX();
+        EVAL_CLASS_MEMBER(entity, g_force);
         EVAL_CLASS_MEMBER(entity, walk_speed);
         EVAL_CLASS_MEMBER(entity, run_speed);
         EVAL_CLASS_MEMBER(entity, jump_speed);
@@ -372,6 +375,28 @@ struct repl {
         EVAL_MEMBER_SYNTAX();
         EVAL_BASE_CLASS(monster, entity);
         // EVAL_CLASS_MEMBER(monster, front_id);
+        EVAL_CLASS_MEMBER(monster, moving);
+        EVAL_CLASS_MEMBER(monster, shooting);
+        EVAL_CLASS_MEMBER(monster, animation_phase);
+        EVAL_CLASS_MEMBER(monster, shooting_time);
+        return false;
+    }
+
+    bool eval(animation &animation, const std::string &path,
+              const std::vector<std::string> &argument_list) {
+        EVAL_MEMBER_SYNTAX();
+        EVAL_CLASS_MEMBER(animation, frame_id);
+        EVAL_CLASS_MEMBER(animation, frame);
+        EVAL_CLASS_MEMBER(animation, initial_phase);
+        EVAL_CLASS_MEMBER(animation, current_phase);
+        return false;
+    }
+
+    bool eval(delay &delay, const std::string &path,
+              const std::vector<std::string> &argument_list) {
+        EVAL_MEMBER_SYNTAX();
+        EVAL_CLASS_MEMBER(delay, delay);
+        EVAL_CLASS_MEMBER(delay, remaining_delay);
         return false;
     }
 
@@ -424,6 +449,15 @@ struct repl {
         EVAL_CLASS_MEMBER(triangle, texture_index);
         return false;
     }
+
+    bool eval(player3d &player, const std::string &path,
+              const std::vector<std::string> &argument_list) {
+        EVAL_MEMBER_SYNTAX();
+        EVAL_BASE_CLASS(player, entity);
+        EVAL_CLASS_MEMBER(player, camera_position);
+        return false;
+    }
+
 #undef EVAL_CLASS_MEMBER
 #undef EVAL_CLASS_MEMBER_NO_RETURN
 #undef EVAL_BASE_CLASS

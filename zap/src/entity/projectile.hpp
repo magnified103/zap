@@ -1,6 +1,8 @@
 #ifndef ENTITY_PROJECTILE_HPP
 #define ENTITY_PROJECTILE_HPP
 
+#include <cereal/cereal.hpp>
+
 #include "geometry/vector.hpp"
 
 struct projectile_type {
@@ -29,27 +31,11 @@ struct projectile {
     int phase;
     float end_time;
 
-    void ignite(vec3 initial_position, vec3 direction) {
-        // shoot!
-        velocity = normalize(direction) * base.speed;
-        position = initial_position;
-        phase = 0;
-    }
+    void ignite(vec3 initial_position, vec3 direction);
 
-    vec3 try_move(float delta_time) { return position + velocity * delta_time; }
+    vec3 try_move(float delta_time);
 
-    void explode(float delta_time) {
-        if (phase == 0) {
-            phase = 1;
-            end_time = base.end_time;
-        } else {
-            if (end_time < 0) {
-                phase = 2;
-            } else {
-                end_time -= delta_time;
-            }
-        }
-    }
+    void explode(float delta_time);
 };
 
 #endif // ENTITY_PROJECTILE_HPP

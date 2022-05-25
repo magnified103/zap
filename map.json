@@ -7,7 +7,25 @@
             [
                 {
                     "top_mesh_index": -1,
-                    "middle_mesh_index": 0,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": 0,
+                    "floor_level": 5.0,
+                    "ceil_level": 20.0,
+                    "lightning": 1.0
+                },
+                {
+                    "top_mesh_index": 1,
+                    "middle_mesh_index": -1,
+                    "bottom_mesh_index": -1,
+                    "floor_level": 5.0,
+                    "ceil_level": 5.0,
+                    "lightning": 1.0
+                }
+            ],
+            [
+                {
+                    "top_mesh_index": -1,
+                    "middle_mesh_index": -1,
                     "bottom_mesh_index": -1,
                     "floor_level": 5.0,
                     "ceil_level": 20.0,
@@ -16,25 +34,7 @@
                 {
                     "top_mesh_index": -1,
                     "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                }
-            ],
-            [
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
-                    "floor_level": 5.0,
-                    "ceil_level": 20.0,
-                    "lightning": 1.0
-                },
-                {
-                    "top_mesh_index": -1,
-                    "middle_mesh_index": -1,
-                    "bottom_mesh_index": 0,
+                    "bottom_mesh_index": -1,
                     "floor_level": 5.0,
                     "ceil_level": 20.0,
                     "lightning": 1.0
@@ -87,91 +87,269 @@
                 ],
                 "faces": [
                     {
-                        "vertex_indices": [
-                            1,
-                            3,
-                            0
-                        ],
-                        "UVs": [
-                            {
+                        "vertex_indices": {
+                            "value0": 1,
+                            "value1": 3,
+                            "value2": 0
+                        },
+                        "UVs": {
+                            "value0": {
                                 "x": 0.0,
                                 "y": 0.0
                             },
-                            {
+                            "value1": {
                                 "x": 0.0,
                                 "y": 1.0
                             },
-                            {
+                            "value2": {
                                 "x": 1.0,
                                 "y": 0.0
                             }
-                        ],
+                        },
                         "texture_index": 0
                     },
                     {
-                        "vertex_indices": [
-                            3,
-                            0,
-                            2
-                        ],
-                        "UVs": [
-                            {
+                        "vertex_indices": {
+                            "value0": 3,
+                            "value1": 0,
+                            "value2": 2
+                        },
+                        "UVs": {
+                            "value0": {
                                 "x": 0.0,
                                 "y": 1.0
                             },
-                            {
+                            "value1": {
                                 "x": 1.0,
                                 "y": 0.0
                             },
-                            {
+                            "value2": {
                                 "x": 1.0,
                                 "y": 1.0
                             }
-                        ],
+                        },
                         "texture_index": 0
+                    }
+                ]
+            },
+            {
+                "vertices": [
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
                     },
                     {
-                        "vertex_indices": [
-                            1,
-                            5,
-                            0
-                        ],
-                        "UVs": [
-                            {
+                        "x": 5.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 0.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 10.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 10.0,
+                        "z": 0.0
+                    },
+                    {
+                        "x": 0.0,
+                        "y": 10.0,
+                        "z": 5.0
+                    },
+                    {
+                        "x": 5.0,
+                        "y": 10.0,
+                        "z": 5.0
+                    }
+                ],
+                "faces": [
+                    {
+                        "vertex_indices": {
+                            "value0": 1,
+                            "value1": 5,
+                            "value2": 0
+                        },
+                        "UVs": {
+                            "value0": {
                                 "x": 0.0,
                                 "y": 0.0
                             },
-                            {
+                            "value1": {
                                 "x": 0.0,
                                 "y": 1.0
                             },
-                            {
+                            "value2": {
                                 "x": 1.0,
                                 "y": 0.0
                             }
-                        ],
+                        },
                         "texture_index": 6
                     },
                     {
-                        "vertex_indices": [
-                            5,
-                            0,
-                            4
-                        ],
-                        "UVs": [
-                            {
+                        "vertex_indices": {
+                            "value0": 5,
+                            "value1": 0,
+                            "value2": 4
+                        },
+                        "UVs": {
+                            "value0": {
                                 "x": 0.0,
                                 "y": 1.0
                             },
-                            {
+                            "value1": {
                                 "x": 1.0,
                                 "y": 0.0
                             },
-                            {
+                            "value2": {
                                 "x": 1.0,
                                 "y": 1.0
                             }
-                        ],
+                        },
+                        "texture_index": 6
+                    },
+                    {
+                        "vertex_indices": {
+                            "value0": 0,
+                            "value1": 4,
+                            "value2": 2
+                        },
+                        "UVs": {
+                            "value0": {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            "value1": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "value2": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        "texture_index": 6
+                    },
+                    {
+                        "vertex_indices": {
+                            "value0": 4,
+                            "value1": 2,
+                            "value2": 6
+                        },
+                        "UVs": {
+                            "value0": {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            "value1": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "value2": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        "texture_index": 6
+                    },
+                    {
+                        "vertex_indices": {
+                            "value0": 2,
+                            "value1": 6,
+                            "value2": 3
+                        },
+                        "UVs": {
+                            "value0": {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            "value1": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "value2": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        "texture_index": 6
+                    },
+                    {
+                        "vertex_indices": {
+                            "value0": 6,
+                            "value1": 3,
+                            "value2": 7
+                        },
+                        "UVs": {
+                            "value0": {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            "value1": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "value2": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        "texture_index": 6
+                    },
+                    {
+                        "vertex_indices": {
+                            "value0": 3,
+                            "value1": 7,
+                            "value2": 1
+                        },
+                        "UVs": {
+                            "value0": {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            "value1": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "value2": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        "texture_index": 6
+                    },
+                    {
+                        "vertex_indices": {
+                            "value0": 7,
+                            "value1": 1,
+                            "value2": 5
+                        },
+                        "UVs": {
+                            "value0": {
+                                "x": 0.0,
+                                "y": 1.0
+                            },
+                            "value1": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "value2": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
                         "texture_index": 6
                     }
                 ]
@@ -180,7 +358,8 @@
         "monsters": [
             {
                 "entity": {
-                    "walk_speed": 0.01,
+                    "g_force": -10.0,
+                    "walk_speed": 0.009999999776482582,
                     "run_speed": 0.0,
                     "jump_speed": 10.0,
                     "current_movement": {
@@ -225,7 +404,7 @@
                     },
                     "hitbox_height": 5.599999904632568,
                     "hitbox_radius": 2.049999952316284,
-                    "hitpoint": 100000
+                    "hitpoint": 100
                 },
                 "moving": {
                     "frame_id": [
@@ -235,7 +414,7 @@
                         5
                     ],
                     "frame": {
-                        "delay": 0.15,
+                        "delay": 0.15000000596046449,
                         "remaining_delay": 0.0
                     },
                     "initial_phase": 0
@@ -245,21 +424,21 @@
                         8
                     ],
                     "frame": {
-                        "delay": 0.3,
+                        "delay": 0.30000001192092898,
                         "remaining_delay": 0.0
                     },
                     "initial_phase": 0
                 },
                 "animation_phase": 0,
                 "shooting_time": {
-                    "delay": 0.6,
+                    "delay": 0.6000000238418579,
                     "remaining_delay": 0.0
                 }
             }
         ],
         "projectile_types": [
             {
-                "speed": 10.0,
+                "speed": 100.0,
                 "move_id": 1,
                 "move_size": 0.10000000149011612,
                 "end_id": 1,
@@ -278,11 +457,17 @@
             "./res/playd1.png",
             "./res/d2_wall0.png",
             "./res/playe1.png",
-            "./res/playf1.png"
+            "./res/playf1.png",
+            "./res/death_screen.png",
+            "./res/plasa0.png",
+            "./res/plasa1.png",
+            "./res/pungc0.png",
+            "./res/pungc1.png"
         ]
     },
     "player": {
         "entity": {
+            "g_force": -10.0,
             "walk_speed": 0.5,
             "run_speed": 0.0,
             "jump_speed": 10.0,
@@ -297,6 +482,24 @@
             "current_inventory": {
                 "items": [
                     {
+                        "polymorphic_id": 2147483650,
+                        "polymorphic_name": "melee_weapon",
+                        "ptr_wrapper": {
+                            "valid": 1,
+                            "data": {
+                                "inventory_item": {
+                                    "reload": {
+                                        "delay": 0.5,
+                                        "remaining_delay": 0.0
+                                    },
+                                    "highlighted_texture_index": 12,
+                                    "regular_texture_index": 13
+                                },
+                                "melee_damage": 30
+                            }
+                        }
+                    },
+                    {
                         "polymorphic_id": 1,
                         "ptr_wrapper": {
                             "valid": 1,
@@ -306,8 +509,8 @@
                                         "delay": 1.0,
                                         "remaining_delay": 0.0
                                     },
-                                    "highlighted_texture_index": -1,
-                                    "regular_texture_index": -1
+                                    "highlighted_texture_index": 10,
+                                    "regular_texture_index": 11
                                 },
                                 "projectile_type": 0,
                                 "activated": true,
@@ -327,7 +530,7 @@
             },
             "hitbox_height": 5.0,
             "hitbox_radius": 0.5,
-            "hitpoint": 100
+            "hitpoint": 1000000
         },
         "camera_position": {
             "x": 0.0,
@@ -345,9 +548,9 @@
     "display": {
         "health_bar": {
             "icon_texture_index": -1,
-            "height": 50,
-            "per_letter_width": 30,
-            "icon_width": 50,
+            "height": 50.0,
+            "per_letter_width": 30.0,
+            "icon_width": 50.0,
             "text_color": {
                 "r": 255,
                 "g": 255,
@@ -357,9 +560,9 @@
         },
         "ammo_bar": {
             "icon_texture_index": -1,
-            "height": 50,
-            "per_letter_width": 30,
-            "icon_width": 50,
+            "height": 50.0,
+            "per_letter_width": 30.0,
+            "icon_width": 50.0,
             "text_color": {
                 "r": 255,
                 "g": 255,
@@ -369,11 +572,11 @@
         },
         "font_path": "./res/VT323-Regular.ttf",
         "inventory_bar": {
-            "sep": 100,
-            "icon_width": 50,
-            "icon_height": 50
+            "sep": 150.0,
+            "icon_width": 140.0,
+            "icon_height": 42.0
         },
-        "death_screen_texture_index": -1,
+        "death_screen_texture_index": 9,
         "death_message": "You died!",
         "death_message_color": {
             "r": 255,
@@ -381,12 +584,12 @@
             "b": 255,
             "a": 255
         },
-        "death_message_height": 50,
-        "per_letter_death_message_width": 30
+        "death_message_height": 50.0,
+        "per_letter_death_message_width": 30.0
     },
     "engine": {
         "ai": {
-            "polymorphic_id": 2147483650,
+            "polymorphic_id": 2147483651,
             "polymorphic_name": "monster_ai_pathfinding",
             "ptr_wrapper": {
                 "valid": 1,
