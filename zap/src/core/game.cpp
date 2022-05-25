@@ -17,7 +17,7 @@
 
 void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
                                  GLsizei length, const GLchar *message, const void *userParam) {
-    if (type == GL_DEBUG_TYPE_ERROR) {
+    if (type == GL_DEBUG_TYPE_ERROR_ARB) {
         throw std::runtime_error(message);
     } else {
         sdl::log_info("Callback type=0x%x, severity=0x%x, message=%s", type, severity, message);
@@ -93,8 +93,8 @@ game::game(const std::string &map_path) {
     // }
 
     // debug trap
-    glEnable(GL_DEBUG_OUTPUT);
-    glDebugMessageCallback(MessageCallback, 0);
+    // glEnable(GL_ARB_debug_output);
+    // glDebugMessageCallbackARB(MessageCallback, 0);
 
     // w-component depth test
     glEnable(GL_DEPTH_TEST);

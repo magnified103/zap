@@ -41,7 +41,7 @@ struct entity {
         entity_movement next_movement;
         next_movement.current_vertical_speed = v;
         next_movement.position.y = s;
-        if (speed) {
+        if (speed && dot(direction, direction) > 0) {
             direction = normalize(direction);
             vec2 h_position{current_movement.position.x, current_movement.position.z};
             h_position = h_position + direction * speed;
@@ -55,7 +55,7 @@ struct entity {
     }
     entity_movement try_move_without_gravity(vec2 direction, float speed, float delta_time) {
         entity_movement next_movement = current_movement;
-        if (speed) {
+        if (speed && dot(direction, direction) > 0) {
             direction = normalize(direction);
             vec2 h_position{current_movement.position.x, current_movement.position.z};
             h_position = h_position + direction * speed;

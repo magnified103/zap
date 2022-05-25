@@ -18,7 +18,7 @@ glDeleteProgram
 glEnable
 glDepthFunc
 glGetError
-glDebugMessageCallback
+// glDebugMessageCallback
 glBlendFunc
 glGetString
 

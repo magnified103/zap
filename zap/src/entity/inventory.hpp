@@ -29,6 +29,7 @@ struct inventory_item {
         // archive(CEREAL_NVP(reload), CEREAL_NVP(highlighted_texture_index),
         //         CEREAL_NVP(regular_texture_index));
     }
+    virtual ~inventory_item() = default;
 };
 
 struct inventory {

@@ -32,6 +32,12 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE ${PROJECT_SOURCE_DIR}/src
     PRIVATE ${PROJECT_BINARY_DIR}/src
 )
+target_link_directories(${PROJECT_NAME}
+    PRIVATE ${SDL2_LIBRARY_DIRS}
+    PRIVATE ${SDL2IMAGE_LIBRARY_DIRS}
+    PRIVATE ${SDL2TTF_LIBRARY_DIRS}
+    PRIVATE ${READLINE_LIBRARY_DIRS}
+)
 target_link_libraries(${PROJECT_NAME}
     PRIVATE core
     PRIVATE entity
