@@ -61,3 +61,5 @@ void ranged_weapon::use(map3d &map, monster &monster, player3d &player) {
                                       calculate_hand(monster.hand_position, direction),
                                   direction);
 }
+
+int ranged_weapon::get_count() { return number_of_rounds; }

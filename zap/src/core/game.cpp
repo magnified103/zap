@@ -15,14 +15,14 @@
 #include "scenery/map_util.hpp"
 #include "sdl2/SDL.hpp"
 
-void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
-                                 GLsizei length, const GLchar *message, const void *userParam) {
-    if (type == GL_DEBUG_TYPE_ERROR_ARB) {
-        throw std::runtime_error(message);
-    } else {
-        sdl::log_info("Callback type=0x%x, severity=0x%x, message=%s", type, severity, message);
-    }
-}
+// void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
+//                                  GLsizei length, const GLchar *message, const void *userParam) {
+//     if (type == GL_DEBUG_TYPE_ERROR_ARB) {
+//         throw std::runtime_error(message);
+//     } else {
+//         sdl::log_info("Callback type=0x%x, severity=0x%x, message=%s", type, severity, message);
+//     }
+// }
 
 game::game(const std::string &map_path) {
 
@@ -38,10 +38,7 @@ game::game(const std::string &map_path) {
     context_loader context(main_window->get());
 
     // load map
-    main_map = std::make_unique<map3d>();
-    main_player = std::make_unique<player3d>();
-    physics_engine = std::make_unique<physics>();
-    load_map_and_textures(map_path, *main_map, *main_player, *physics_engine, surface_ids);
+    load_map_and_textures(map_path, main_map, main_player, display, physics_engine, surface_ids);
 
     // main_map->number_of_columns = 2;
     // main_map->number_of_rows = 2;
@@ -173,6 +170,38 @@ game::game(const std::string &map_path) {
         color = texture( texture_sampler, UV ).rgba;
     })");
 
+    shader_program_2d = load_shader_program(R"(#version 400 core
+
+    // Input vertex data, different for all executions of this shader.
+    layout(location = 0) in vec2 vertexPosition_modelspace;
+    layout(location = 1) in vec2 vertexUV;
+
+    // Output data ; will be interpolated for each fragment.
+    out vec2 UV;
+
+    void main() {
+        // Output position of the vertex, in clip space : MVP * position
+        gl_Position =  vec4(vertexPosition_modelspace, 0, 1);
+
+        // UV of the vertex. No special space for this one.
+        UV = vertexUV;
+    })",
+                                            R"(#version 400 core
+    
+    // Interpolated values from the vertex shaders
+    in vec2 UV;
+
+    // Ouput data
+    out vec4 color;
+
+    // Values that stay constant for the whole mesh.
+    uniform sampler2D texture_sampler;
+
+    void main() {
+        // Output color = color of the texture at the specified UV
+        color = texture( texture_sampler, UV ).rgba;
+    })");
+
     // timer start
     game_timer.start();
 
@@ -212,8 +241,8 @@ void game::game_logic() {
             jump = true;
         }
     }
-    physics_engine->trigger_player_keyboard(*main_map, *main_player, forward, backward, left, right,
-                                            jump, false);
+    physics_engine.trigger_player_keyboard(main_map, main_player, forward, backward, left, right,
+                                           jump, false);
     // int type = 0;
     // if ((forward || backward || left || right)) {
     //     type = 1;
@@ -309,11 +338,13 @@ void game::game_logic() {
     constexpr Uint32 MS_PER_UPDATE = 20;
     constexpr float DELTA_TIME = MS_PER_UPDATE * 0.001;
 
-    while (lag_time >= MS_PER_UPDATE) {
-        physics_engine->resolve(*main_map, *main_player, DELTA_TIME);
-        main_player->current_inventory.update_state(DELTA_TIME);
+    // if main player haven't died
+    while (lag_time >= MS_PER_UPDATE && !main_player.dead) {
+        physics_engine.resolve(main_map, main_player, DELTA_TIME);
 
-        for (auto &monster : main_map->monsters) {
+        main_player.current_inventory.update_state(DELTA_TIME);
+
+        for (auto &monster : main_map.monsters) {
             monster.current_inventory.update_state(DELTA_TIME);
         }
         lag_time -= MS_PER_UPDATE;
@@ -330,13 +361,24 @@ void game::game_logic() {
 
     // Clear the screen
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    main_player->render_view(*main_map, surface_ids, window_width, window_height, shader_program);
+    main_player.render_view(main_map, surface_ids, window_width, window_height, shader_program);
+
+    // if main player haven't died
+    if (main_player.dead) {
+        display.render_end_screen(surface_ids, window_width, window_height, shader_program_2d);
+    } else {
+        display.render_scene(main_player.hitpoint,
+                             main_player.current_inventory.get_selected_count(),
+                             main_player.current_inventory, surface_ids, window_width,
+                             window_height, shader_program_2d);
+    }
     // main_renderer->present();
     SDL_GL_SwapWindow(main_window->get());
 }
 
 game::~game() {
     glDeleteProgram(shader_program);
+    glDeleteProgram(shader_program_2d);
     glDeleteTextures(surface_ids.size(), surface_ids.data());
 }
 
@@ -353,7 +395,7 @@ void game::on_mouse_button_event(const SDL_MouseButtonEvent &event) {
             sdl::set_relative_mouse_mode(true);
             mouse_is_trapped = true;
         } else if (event.button == SDL_BUTTON_LEFT) {
-            main_player->current_inventory.trigger_selection(*main_map, *main_player);
+            main_player.current_inventory.trigger_selection(main_map, main_player);
         }
     }
 }
@@ -361,12 +403,12 @@ void game::on_mouse_button_event(const SDL_MouseButtonEvent &event) {
 void game::on_mouse_motion_event(const SDL_MouseMotionEvent &event) {
     if (mouse_is_trapped) {
         // main_camera->rotate(event.xrel * 0.003, event.yrel * -0.003);
-        main_player->camera.rotate(event.xrel * 0.003, event.yrel * -0.003);
+        main_player.camera.rotate(event.xrel * 0.003, event.yrel * -0.003);
     }
 }
 
 void game::on_mouse_wheel_event(const SDL_MouseWheelEvent &event) {
-    auto &inventory = main_player->current_inventory;
+    auto &inventory = main_player.current_inventory;
     if (!inventory.items.empty()) {
         inventory.selection += -event.y + static_cast<int>(inventory.items.size());
         inventory.selection %= inventory.items.size();

@@ -16,6 +16,7 @@ glDeleteProgram
 
 // utilities
 glEnable
+glDisable
 glDepthFunc
 glGetError
 // glDebugMessageCallback

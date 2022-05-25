@@ -3,3 +3,4 @@
 !/.vscode/settings.json
 /build/*
 /main*
+.DS_Store

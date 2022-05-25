@@ -17,12 +17,14 @@
 #include "entity/weapon.hpp"
 #include "geometry/vector.hpp"
 #include "physics/physics.hpp"
+#include "scenery/hud.hpp"
 #include "scenery/map3d.hpp"
 #include "scenery/map_util.hpp"
 
 struct repl {
 
-    int process(map3d &map, player3d &player, physics &engine, const std::string &full_cmd) {
+    int process(map3d &map, player3d &player, hud &display, physics &engine,
+                const std::string &full_cmd) {
         std::istringstream ss(full_cmd);
         if (std::string cmd; ss >> cmd) {
             if (cmd == "eval") {
@@ -67,7 +69,7 @@ struct repl {
             if (cmd == "export") {
                 std::string path;
                 if (ss >> path) {
-                    save_map(path, map, player, engine);
+                    save_map(path, map, player, display, engine);
                     return 1;
                 }
             }
@@ -431,9 +433,10 @@ struct repl {
 void map_editor(const std::string &path) {
     map3d map;
     player3d player;
+    hud display;
     physics engine;
 
-    load_map(path, map, player, engine);
+    load_map(path, map, player, display, engine);
 
     repl interpreter;
     int code;
@@ -449,7 +452,7 @@ void map_editor(const std::string &path) {
         add_history(input);
         std::string full_cmd(input);
         free(input);
-        code = interpreter.process(map, player, engine, full_cmd);
+        code = interpreter.process(map, player, display, engine, full_cmd);
         if (code == 0) {
             std::cout << "Error" << std::endl;
         } else if (code == 1) {

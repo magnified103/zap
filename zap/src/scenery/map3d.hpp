@@ -7,11 +7,11 @@
 
 #include <cereal/cereal.hpp>
 
+#include "block.hpp"
 #include "entity/entity.hpp"
 #include "entity/monster.hpp"
 #include "entity/projectile.hpp"
 #include "opengl/gl.hpp"
-#include "block.hpp"
 // #include "texture.hpp"
 #include "mesh.hpp"
 #include "tile.hpp"
@@ -35,8 +35,8 @@ struct map3d {
     template <class Archive>
     void serialize(Archive &archive) {
         archive(CEREAL_NVP(number_of_columns), CEREAL_NVP(number_of_rows), CEREAL_NVP(cell_size),
-                CEREAL_NVP(terrain), CEREAL_NVP(monsters), CEREAL_NVP(projectile_types),
-                CEREAL_NVP(meshes), CEREAL_NVP(texture_paths));
+                CEREAL_NVP(terrain), CEREAL_NVP(meshes), CEREAL_NVP(monsters),
+                CEREAL_NVP(projectile_types), CEREAL_NVP(texture_paths));
     }
     bool collide_floor(const vec3 &position, float margin = 0) {
         int column_index = std::floor(position.x / cell_size);

@@ -43,8 +43,9 @@ public:
     // cereal specific
     template <class Archive>
     void serialize(Archive &archive) {
-        archive(CEREAL_NVP(sdl_color.r), CEREAL_NVP(sdl_color.g), CEREAL_NVP(sdl_color.b),
-                CEREAL_NVP(sdl_color.a));
+        archive(
+            cereal::make_nvp<Uint8>("r", sdl_color.r), cereal::make_nvp<Uint8>("g", sdl_color.g),
+            cereal::make_nvp<Uint8>("b", sdl_color.b), cereal::make_nvp<Uint8>("a", sdl_color.a));
     }
 
 private:

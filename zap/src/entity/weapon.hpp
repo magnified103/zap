@@ -46,6 +46,8 @@ struct ranged_weapon : inventory_item {
 
     void use(map3d &map, monster &monster, player3d &player) override;
 
+    int get_count() override;
+
     // cereal specific
     template <class Archive>
     void serialize(Archive &archive) {

@@ -14,10 +14,12 @@
 #include "opengl/gl.hpp"
 #include "opengl/utilities.hpp"
 #include "physics/physics.hpp"
-#include "map3d.hpp"
-#include "map_util.hpp"
+#include "scenery/hud.hpp"
+#include "scenery/map3d.hpp"
+#include "scenery/map_util.hpp"
 
-void load_map(const std::string &path, map3d &map, player3d &player, physics &engine) {
+void load_map(const std::string &path, map3d &map, player3d &player, hud &display,
+              physics &engine) {
     // read json file
     std::ifstream input_json(path);
 
@@ -30,10 +32,10 @@ void load_map(const std::string &path, map3d &map, player3d &player, physics &en
     cereal::JSONInputArchive input_archive(input_json);
 
     // black magic
-    input_archive(CEREAL_NVP(map), CEREAL_NVP(player), CEREAL_NVP(engine));
+    input_archive(CEREAL_NVP(map), CEREAL_NVP(player), CEREAL_NVP(display), CEREAL_NVP(engine));
 }
 
-void save_map(const std::string &path, const map3d &map, const player3d &player,
+void save_map(const std::string &path, const map3d &map, const player3d &player, hud &display,
               const physics &engine) {
     std::ofstream output_json(path);
 
@@ -41,7 +43,7 @@ void save_map(const std::string &path, const map3d &map, const player3d &player,
     cereal::JSONOutputArchive output_archive(output_json);
 
     // black magic again
-    output_archive(CEREAL_NVP(map), CEREAL_NVP(player), CEREAL_NVP(engine));
+    output_archive(CEREAL_NVP(map), CEREAL_NVP(player), CEREAL_NVP(display), CEREAL_NVP(engine));
 }
 
 void load_textures(const std::string &path, const map3d &map, std::vector<GLuint> &surface_ids) {
@@ -55,9 +57,9 @@ void load_textures(const std::string &path, const map3d &map, std::vector<GLuint
     }
 }
 
-void load_map_and_textures(const std::string &path, map3d &map, player3d &player, physics &engine,
-                           std::vector<GLuint> &surface_ids) {
-    load_map(path, map, player, engine);
+void load_map_and_textures(const std::string &path, map3d &map, player3d &player, hud &display,
+                           physics &engine, std::vector<GLuint> &surface_ids) {
+    load_map(path, map, player, display, engine);
 
     load_textures(path, map, surface_ids);
 }

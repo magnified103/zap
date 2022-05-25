@@ -177,6 +177,11 @@ struct physics {
                 it++;
             }
         }
+
+        // declare player death if his/her hp went down to zero
+        if (player.hitpoint <= 0) {
+            player.dead = true;
+        }
     }
 
     // cereal specific

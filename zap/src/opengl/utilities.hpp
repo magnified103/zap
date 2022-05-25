@@ -9,7 +9,7 @@
 [[nodiscard]] GLuint load_shader_program(const std::string &vertex_shader_src,
                                          const std::string &fragment_shader_src);
 
-[[nodiscard]] GLuint load_texture(sdl::surface_handle handle);
+[[nodiscard]] GLuint load_texture(const sdl::surface &old_surface);
 
 [[nodiscard]] GLuint load_texture(const std::string &absolute_path);
 

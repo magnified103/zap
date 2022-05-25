@@ -8,12 +8,13 @@
 // #include "scenery/map.hpp"
 #include "entity/player3d.hpp"
 #include "opengl/gl.hpp"
+#include "scenery/hud.hpp"
 #include "scenery/map3d.hpp"
 // #include "scenery/player.hpp"
-#include "physics/physics.hpp"
-#include "timer/timer.hpp"
-#include "sdl2/SDL.hpp"
 #include "basic_game.hpp"
+#include "physics/physics.hpp"
+#include "sdl2/SDL.hpp"
+#include "timer/timer.hpp"
 
 class game final : public basic_game {
 public:
@@ -24,11 +25,11 @@ protected:
     int window_width;
     int window_height;
 
-    std::unique_ptr<player3d> main_player;
+    player3d main_player;
     // std::unique_ptr<camera> main_camera;
     // std::unique_ptr<camera3d> main_camera;
     // std::unique_ptr<map_grid> main_map;
-    std::unique_ptr<map3d> main_map;
+    map3d main_map;
 
     std::vector<GLuint> surface_ids;
 
@@ -37,7 +38,11 @@ protected:
     std::unique_ptr<sdl::window> main_window;
     // std::unique_ptr<sdl::renderer> main_renderer;
 
-    std::unique_ptr<physics> physics_engine;
+    hud display;
+
+    GLuint shader_program_2d;
+
+    physics physics_engine;
 
     const Uint8 *keyboard_state;
 

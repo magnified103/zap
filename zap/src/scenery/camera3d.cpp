@@ -202,6 +202,7 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
             glDeleteBuffers(1, &UV_buffer);
         }
 
+        // delete VAO
         glDeleteVertexArrays(1, &vao);
     };
 

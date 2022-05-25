@@ -16,6 +16,10 @@
 struct player3d : entity {
     vec3 camera_position;
     camera3d camera;
+
+    // runtime specific
+    bool dead = false;
+
     void render_view(const map3d &map, const std::vector<GLuint> &surface_ids,
                      const float &screen_width, const float &screen_height,
                      const GLuint &shader_program) {
