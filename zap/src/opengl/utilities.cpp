@@ -68,7 +68,7 @@ GLuint load_shader_program(const std::string &vertex_shader_src,
     return shader_program_id;
 }
 
-GLuint load_texture(const sdl::surface old_surface) {
+GLuint load_texture(const sdl::surface &old_surface) {
     sdl::surface new_surface(SDL_CreateRGBSurface(0, old_surface.get()->w, old_surface.get()->h, 32,
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
                                                   0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff

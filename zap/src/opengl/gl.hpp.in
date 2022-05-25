@@ -1,9 +1,14 @@
 #ifndef OPENGL_GL_HPP
 #define OPENGL_GL_HPP
 
-#define GL_GLES_PROTOTYPES 0
+// pre-incude
+@GL_FUNC_PREINCLUDE@
 
-#include <SDL_opengles2.h>
+#include <SDL_opengl.h>
+#include <SDL_opengl_glext.h>
+
+// post-include
+@GL_FUNC_POSTINCLUDE@
 
 // declarations here
 @GL_FUNC_DECLARATIONS@

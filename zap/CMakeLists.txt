@@ -27,7 +27,7 @@ add_subdirectory(src/timer)
 
 # main executable
 add_executable(${PROJECT_NAME} main.cpp)
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_include_directories(${PROJECT_NAME}
     PRIVATE ${PROJECT_SOURCE_DIR}/src
     PRIVATE ${PROJECT_BINARY_DIR}/src
