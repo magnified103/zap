@@ -118,6 +118,11 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
         // get mvp location in program
         GLuint MVP_loc = glGetUniformLocation(shader_program, "MVP");
 
+        // create VAO
+        GLuint vao;
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+
         static bool debug = true;
         for (const auto &[frame_id, triangles] : map_triangles) {
 
@@ -196,6 +201,8 @@ void camera3d::render(const vec3 &eye, const vec3 &up, const map3d &map,
             glDeleteBuffers(1, &position_buffer);
             glDeleteBuffers(1, &UV_buffer);
         }
+
+        glDeleteVertexArrays(1, &vao);
     };
 
     render_triangles();

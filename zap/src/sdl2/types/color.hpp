@@ -2,6 +2,7 @@
 #define SDL2_COLOR_HPP
 
 #include <SDL.h>
+#include <cereal/cereal.hpp>
 
 #include "sdl2/detail/common.hpp"
 
@@ -38,6 +39,13 @@ public:
     Uint8 alpha() const { return sdl_color.a; }
 
     Uint8 &alpha() { return sdl_color.a; }
+
+    // cereal specific
+    template <class Archive>
+    void serialize(Archive &archive) {
+        archive(CEREAL_NVP(sdl_color.r), CEREAL_NVP(sdl_color.g), CEREAL_NVP(sdl_color.b),
+                CEREAL_NVP(sdl_color.a));
+    }
 
 private:
     SDL_Color sdl_color;

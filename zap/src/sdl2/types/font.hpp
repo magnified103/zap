@@ -29,7 +29,7 @@ public:
     }
 
     template <class T = traits, detail::enable_for_owner<T> = 0>
-    basic_surface(const std::string &file, const int &ptsize)
+    basic_font(const std::string &file, const int &ptsize)
         : ttf_font{TTF_OpenFont(file.c_str(), ptsize)} {
         if (!ttf_font) {
             throw ttf_exception();
@@ -49,7 +49,7 @@ public:
 
     TTF_Font *get() const noexcept { return ttf_font; }
 
-    int get_style() {
+    int get_style() const {
         if (ttf_font) {
             return TTF_GetFontStyle(ttf_font);
         }
@@ -63,21 +63,21 @@ public:
         throw exception("Cannot set style from nullptr font");
     }
 
-    surface render_utf8_solid(const std::string &text, const color &fg) {
+    surface render_utf8_solid(const std::string &text, const color &fg) const {
         if (ttf_font) {
             return surface{TTF_RenderUTF8_Solid(ttf_font, text.c_str(), fg.get())};
         }
         throw exception("Cannot render solid UTF8 from nullptr font");
     }
 
-    surface render_utf8_shaded(const std::string &text, const color &fg, const color &bg) {
+    surface render_utf8_shaded(const std::string &text, const color &fg, const color &bg) const {
         if (ttf_font) {
             return surface{TTF_RenderUTF8_Shaded(ttf_font, text.c_str(), fg.get(), bg.get())};
         }
         throw exception("Cannot render shaded UTF8 from nullptr font");
     }
 
-    surface render_utf8_blended(const std::string &text, const color &fg) {
+    surface render_utf8_blended(const std::string &text, const color &fg) const {
         if (ttf_font) {
             return surface{TTF_RenderUTF8_Blended(ttf_font, text.c_str(), fg.get())};
         }

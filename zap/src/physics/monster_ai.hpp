@@ -21,6 +21,7 @@ struct monster_ai {
     // cereal specific
     template <class Archive>
     void serialize(Archive &archive) {}
+    virtual ~monster_ai() = default;
 };
 
 struct monster_ai_pathfinding : monster_ai {

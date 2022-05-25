@@ -15,9 +15,9 @@
 #include "scenery/map_util.hpp"
 #include "sdl2/SDL.hpp"
 
-void GL_APIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
+void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity,
                                  GLsizei length, const GLchar *message, const void *userParam) {
-    if (type == GL_DEBUG_TYPE_ERROR_KHR) {
+    if (type == GL_DEBUG_TYPE_ERROR) {
         throw std::runtime_error(message);
     } else {
         sdl::log_info("Callback type=0x%x, severity=0x%x, message=%s", type, severity, message);
@@ -93,8 +93,8 @@ game::game(const std::string &map_path) {
     // }
 
     // debug trap
-    glEnable(GL_DEBUG_OUTPUT_KHR);
-    glDebugMessageCallbackKHR(MessageCallback, 0);
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(MessageCallback, 0);
 
     // w-component depth test
     glEnable(GL_DEPTH_TEST);
@@ -138,7 +138,7 @@ game::game(const std::string &map_path) {
     // sdl::set_relative_mouse_mode(true);
     // mouse_is_trapped = true;
 
-    shader_program = load_shader_program(R"(#version 300 es
+    shader_program = load_shader_program(R"(#version 400 core
 
     // Input vertex data, different for all executions of this shader.
     layout(location = 0) in vec3 vertexPosition_modelspace;
@@ -157,9 +157,7 @@ game::game(const std::string &map_path) {
         // UV of the vertex. No special space for this one.
         UV = vertexUV;
     })",
-                                         R"(#version 300 es
-
-    precision highp float;
+                                         R"(#version 400 core
 
     // Interpolated values from the vertex shaders
     in vec2 UV;

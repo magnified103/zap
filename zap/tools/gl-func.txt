@@ -18,7 +18,7 @@ glDeleteProgram
 glEnable
 glDepthFunc
 glGetError
-glDebugMessageCallbackKHR
+glDebugMessageCallback
 glBlendFunc
 glGetString
 
@@ -35,6 +35,11 @@ glBindBuffer
 glBufferData
 glVertexAttribPointer
 glDeleteBuffers
+
+// VAO
+glGenVertexArrays
+glBindVertexArray
+glDeleteVertexArrays
 
 // drawing
 glClear

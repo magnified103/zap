@@ -15,6 +15,8 @@ struct monster;
 
 struct inventory_item {
     delay reload;
+    int highlighted_texture_index;
+    int regular_texture_index;
 
     virtual void use(map3d &map, player3d &player) = 0;
 
@@ -24,7 +26,10 @@ struct inventory_item {
     template <class Archive>
     void serialize(Archive &archive) {
         archive(CEREAL_NVP(reload));
+        // archive(CEREAL_NVP(reload), CEREAL_NVP(highlighted_texture_index),
+        //         CEREAL_NVP(regular_texture_index));
     }
+    virtual ~inventory_item() = default;
 };
 
 struct inventory {

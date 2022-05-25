@@ -4,7 +4,7 @@ add_library(scenery OBJECT
     map_util.hpp
     map_util.cpp
 )
-target_compile_features(scenery PRIVATE cxx_std_17)
+target_compile_features(scenery PRIVATE cxx_std_20)
 target_include_directories(scenery
     PRIVATE ${PROJECT_SOURCE_DIR}/src
     PRIVATE ${PROJECT_BINARY_DIR}/src
